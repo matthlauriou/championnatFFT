@@ -21,7 +21,6 @@
 				phase_championnat mediumint(11) NOT NULL,
 				poule_championnat mediumint(11) NOT NULL,
 				numero_equipe mediumint(11) NOT NULL,
-				archivee mediumint(11) NOT NULL,
 				PRIMARY KEY  (id)
 			) $charset_collate;";
 

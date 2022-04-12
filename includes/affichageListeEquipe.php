@@ -53,7 +53,11 @@
 	                <td>" . $id . "</td>
 	                <td>" . $annee . "</td>
 	                <td>" . $libelle . "</td>
-	                <td> Numero championnat : " . $numero_championnat . "<br/> Division : " . $division_championnat . "<br/> Phase : " . $phase_championnat . "<br/> Poule : " . $poule_championnat . "<br/> Equipe : " . $numero_equipe . "</td>
+	                <td> Numero championnat : ". $numero_championnat ."<br/> 
+						Division : " . $division_championnat . "<br/> 
+						Phase : " . $phase_championnat . "<br/> 
+						Poule : " . $poule_championnat . "<br/> 
+						Equipe : " . $numero_equipe . "</td>
 	                <td><a href='?page=gestionEquipe&action=modifier&idEquipe=" . $id . "' name='sub_modifier'>Modifier</a>
 	                <br/>
 	                <a href='?page=affichageListeEquipe&supprimer=" . $id . "' name='sub_supprimer'>Supprimer</a>

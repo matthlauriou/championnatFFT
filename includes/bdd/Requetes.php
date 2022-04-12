@@ -10,7 +10,7 @@
 
 		// TODO : commentaires ?
 		function getAllParametrages() {
-			return $this->wpdb->get_results("SELECT * FROM ".$this->TABLE_PARAMETRAGE);
+			return $this->wpdb->get_results("SELECT * FROM ". $this->TABLE_PARAMETRAGE);
 		}
 
 		// TODO : commentaires ?
@@ -34,24 +34,21 @@
 
 		// TODO : commentaires ?
 		function getAllEquipes() {
-			return $this->wpdb->get_results("SELECT * FROM ". $this->TABLE_EQUIPE ." where archivee = 0 order by id desc");
+			return $this->wpdb->get_results("SELECT * FROM ". $this->TABLE_EQUIPE ." order by id desc");
 		}
 
 		// TODO1 : commentaires ?
-		// TODO2 : lors de la création d'une équipe, on ne peut pas archiver une équipe par défaut, cette valorisation doit donc être automatiquement à false par défaut
 		function insertEquipe($libelle, $annee, $numeroChampionnat, $divisionChampionnat, $phaseChampionnat, $pouleChampionnat, $numeroEquipe) {
-			// FIXME voir TODO2
-			$archivee = 0;
 			return $this->wpdb->insert($this->TABLE_EQUIPE, array('libelle'=>$libelle,'annee'=>$annee,'numero_championnat'=>$numeroChampionnat,
 				'division_championnat'=>$divisionChampionnat,'phase_championnat'=>$phaseChampionnat ,'poule_championnat'=>$pouleChampionnat,
-				'numero_equipe'=>$numeroEquipe,'archivee'=>$archivee));
+				'numero_equipe'=>$numeroEquipe));
 		}
 
 		// TODO : commentaires ?
-		function updateEquipe($idEquipe, $libelle, $annee, $numeroChampionnat, $divisionChampionnat, $phaseChampionnat, $pouleChampionnat, $numeroEquipe, $archivee) {
+		function updateEquipe($idEquipe, $libelle, $annee, $numeroChampionnat, $divisionChampionnat, $phaseChampionnat, $pouleChampionnat, $numeroEquipe) {
 			return $this->wpdb->update($this->TABLE_EQUIPE, array('libelle'=>$libelle,'annee'=>$annee,'numero_championnat'=>$numeroChampionnat,
 				'division_championnat'=>$divisionChampionnat,'phase_championnat'=>$phaseChampionnat,'poule_championnat'=>$pouleChampionnat,
-				'numero_equipe'=>$numeroEquipe,'archivee'=>$archivee), array('id' => $idEquipe), $format = null, $where_format = null);
+				'numero_equipe'=>$numeroEquipe), array('id' => $idEquipe), $format = null, $where_format = null);
 		}
 
 		// TODO : commentaires ?

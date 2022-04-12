@@ -78,11 +78,9 @@
 				$message = "Equipe créée avec succès";
 			}
 		} elseif (strcmp($_GET["action"], $MODIFIER) == 0) {
-			$archivee = isset($_POST['txt_archivee']) ? '1' : '0';
-
 			// Action de mise à jours de l'équipe en préparant les paramètres pour eviter injection sql
 			$updated = $requetes->updateEquipe($idEquipe, $libelle, $annee, $numero_championnat, $division_championnat, 
-				$phase_championnat, $poule_championnat, $numero_equipe, $archivee);
+				$phase_championnat, $poule_championnat, $numero_equipe);
 
 			if ($updated === false) {
 				$message = "Modification d'équipe impossible";
@@ -128,10 +126,6 @@
 					<tr>
 						<td>Equipe</td>
 						<td><input type='text' name='txt_numero_equipe' pattern='[0-9]+' required='required' value ='$numero_equipe'></td>
-					</tr>
-					<tr>
-						<td>Archiver</td>
-						<td><input type='checkbox' name='txt_archivee' value='1'></td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
