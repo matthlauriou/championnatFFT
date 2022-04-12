@@ -1,6 +1,7 @@
 <?php
-	require_once("requetesBDD.php");
-
+	global $wpdb;
+	require plugin_dir_path(__FILE__).'/bdd/Requetes.php';
+	
 	// TODO 1 : Cela veut dire que si tu as ?page=...&action= tu peux supprimer. Il faut impérativement tester la valeur de $_GET["action"] à savoir si tu es bien dans une action de suppression et que $_GET['idEquipe'] est "isset" et que $_GET['idEquipe'] est valorisé et que $_GET['idEquipe'] existe en BDD sinon on pourrait supprimer une équipe 999999 qui n'existe pas (soit tu t'ouvres un genre de DELETE IF EXISTS avec l'idEquipe ou sinon tu fais un select * .... et tu vérifies que tu n'as bien qu'une seule occurence de cet id)
 	// TODO 2 : une autre problématique se pose ici, tu fais un refresh de l'url, tu vas essayé à nouveau de supprimer cette même équipe. Il vaut mieux que tu passes par un $_POST que tu valorises à null afin d'éviter une action de refresh.
 	// supprimer un enregistrement
@@ -33,8 +34,9 @@
 
 <?php
 
+	$requetes = new Requetes($wpdb);
 	// Récupération de l'ensemble des equipes
-	$listeEquipes = getAllEquipes();
+	$listeEquipes = $requetes->getAllEquipes($wpdb);
 	if (count($listeEquipes) > 0) {
 		// Si on a au moins 1 équipe, on affiche l'ensemble des équipes dans un tableau
 	    foreach ($listeEquipes as $equipe) {

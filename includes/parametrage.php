@@ -1,8 +1,10 @@
 <?php
 
     // Définition des variables globales
-    require('constantes.php');
-    require_once("requetesBDD.php");
+    require plugin_dir_path(__FILE__).'/constantes/constantes.php';
+	require plugin_dir_path(__FILE__).'/bdd/Requetes.php';
+    global $wpdb;
+    
 
     $url_post = "Aucune valeur";
     $url_feuille_match = "Aucune valeur";
@@ -10,8 +12,10 @@
     $zoneInformation = false;
     $message = "";
 
+    $requetes = new Requetes($wpdb);
+
     // Récupération de l'ensemble des valeurs de la table "parametrage"
-    $listeParametres = getAllParametrages();
+    $listeParametres = $requetes->getAllParametrages();
     
     // On boucle sur l'ensemble des cle/valeur afin de valoriser le formulaire
     foreach ($listeParametres as $parametre) {
@@ -38,11 +42,11 @@
         $txt_url_feuille_match = strip_tags($_POST['txt_url_feuille_match']);
 
         // Mise à jours des valeurs l'une après l'autre vis à vis de sa clé primaire
-        if (!updateTableParametrage($URL_POST, $txt_url_post)) {
+        if (!$requetes->updateTableParametrage($URL_POST, $txt_url_post)) {
             $zoneInformation = true;
             $message = "La mise à jours de la clé ".$URL_POST." avec la valeur ".$txt_url_post." est impossible. ";
         }
-        if (!updateTableParametrage($URL_FEUILLE_MATCH, $txt_url_feuille_match)) {
+        if (!$requetes->updateTableParametrage($URL_FEUILLE_MATCH, $txt_url_feuille_match)) {
             $zoneInformation = true;
             $message = $message ."La mise à jours de la clé ".$URL_FEUILLE_MATCH." avec la valeur ".$txt_url_feuille_match." est impossible. ";
         }
@@ -50,9 +54,9 @@
         if (!$zoneInformation) {
             // Pas d'erreur détectée, on affiche un message de succès de mise à jours
             $zoneInformation = true;
-            $message = "La mise à jours des valeurs a été effectuée avec succès"
+            $message = "La mise à jours des valeurs a été effectuée avec succès";
             // Destruction de corps du $_POST
-            $_POST = null;
+            unset($_POST);
         }       
     }
 

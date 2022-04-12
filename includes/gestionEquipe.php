@@ -1,6 +1,9 @@
 <?php
-	require('constantes.php');
-	require_once("requetesBDD.php");
+	require plugin_dir_path(__FILE__).'/constantes/constantes.php';
+	require plugin_dir_path(__FILE__).'/bdd/Requetes.php';
+	global $wpdb;
+
+	$requetes = new Requetes($wpdb);
 
 	// Variables globales de la zone d'information
 	$zoneInformation = true;
@@ -27,25 +30,17 @@
 		} elseif (strcmp($_GET["action"], $MODIFIER) == 0) {
 			// Modification d'équipe, on intialise l'ensemble des valeurs avec les valeurs de la BDD
 			$idEquipe = $_GET['idEquipe'];
-			$listeEquipes = getEquipe($idEquipe);
+			$equipe = $requetes->getEquipe($idEquipe);
 			
-			if (count($listeEquipes) == 1) {
-				// Valorisation des valeurs de l'équipe vis à vis des données présentes dans la BDD
-				$titre = "Modification";
-				foreach($listeEquipes as $equipe){
-					$libelle = $equipe->libelle;
-					$annee = $equipe->annee;
-					$numero_championnat = $equipe->numero_championnat;
-					$division_championnat = $equipe->division_championnat;
-					$phase_championnat = $equipe->phase_championnat;
-					$poule_championnat = $equipe->poule_championnat;
-					$numero_equipe = $equipe->numero_equipe;
-				}
-			} else {
-				// Nous n'avons pas ou plus d'une équipe suite à la recherche, cas d'erreur remontée
-				$zoneInformation = true;
-				$message = "Erreur vis à vis de l'équipe sélectionnée : ".$idEquipe;
-			}
+			// Valorisation des valeurs de l'équipe vis à vis des données présentes dans la BDD
+			$titre = "Modification";
+			$libelle = $equipe->libelle;
+			$annee = $equipe->annee;
+			$numero_championnat = $equipe->numero_championnat;
+			$division_championnat = $equipe->division_championnat;
+			$phase_championnat = $equipe->phase_championnat;
+			$poule_championnat = $equipe->poule_championnat;
+			$numero_equipe = $equipe->numero_equipe;
 		} else {
 			// L'action souhaitée n'existe pas, on remonte une erreur
 			$zoneInformation = true;
@@ -69,12 +64,12 @@
 	    $phase_championnat = strip_tags($_POST['txt_phase_championnat']);
 	    $poule_championnat = strip_tags($_POST['txt_poule_championnat']);
 	    $numero_equipe = strip_tags($_POST['txt_numero_equipe']);
-	    $archivee = strip_tags($_POST['txt_archivee']);
 			
-		//si $_get['action']==$CREER inserer donnée en base préparer les paramêtre pour se protéger contre injection sql 
+		//si $_get['action']==$CREER insérer donnée en base préparer les paramêtre pour se protéger contre injection sql 
 		if (strcmp($_GET["action"], $CREER) == 0) {
 			// Action de création on insert donc les données en base en préparant les paramètres pour eviter les injections sql
-			$inserted = insertEquipe($libelle, $annee, $numero_championnat, $division_championnat, $phase_championnat, $poule_championnat, $numero_equipe);
+			$inserted = $requetes->insertEquipe($libelle, $annee, $numero_championnat, $division_championnat, 
+				$phase_championnat, $poule_championnat, $numero_equipe);
 
 			// Vérification que la requête se soit bien éxécutée
 			if ($inserted === false) {
@@ -83,8 +78,11 @@
 				$message = "Equipe créée avec succès";
 			}
 		} elseif (strcmp($_GET["action"], $MODIFIER) == 0) {
+			$archivee = isset($_POST['txt_archivee']) ? '1' : '0';
+
 			// Action de mise à jours de l'équipe en préparant les paramètres pour eviter injection sql
-			$updated = updateEquipe($idEquipe, $annee, $numero_championnat, $division_championnat, $phase_championnat, $poule_championnat, $numero_equipe, $archivee);
+			$updated = $requetes->updateEquipe($idEquipe, $libelle, $annee, $numero_championnat, $division_championnat, 
+				$phase_championnat, $poule_championnat, $numero_equipe, $archivee);
 
 			if ($updated === false) {
 				$message = "Modification d'équipe impossible";

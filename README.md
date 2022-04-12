@@ -3,3 +3,7 @@ Plugin de récupération des données des championnats de la FFT depuis le site 
 
 Pré-requis :
 -> Plugin WordPress
+
+Développeurs collaborants :
+- Aurélie DE MONGOLFIER
+- Matthieu LAURIOU
