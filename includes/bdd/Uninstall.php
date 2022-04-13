@@ -13,7 +13,7 @@
 			$this->wpdb->query($sql);
 		}
 	
-		// TODO : commentaires ?
+		// Suppression de la table PARAMETRAGE
 		function dropParametrage() {
 			$sql = "DROP TABLE IF EXISTS $this->TABLE_PARAMETRAGE";
 			$this->wpdb->query($sql);

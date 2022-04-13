@@ -8,7 +8,7 @@
 			parent::__construct($wpdb);
 		}
 
-		// TODO : commentaires ?
+		// Création de la table Equipe en base de données à l'activation du pluggin
 		function creerTableEquipe() {
 			$charset_collate = $this->wpdb->get_charset_collate();
 
@@ -27,7 +27,7 @@
 			return $sql_equipe;
 		}
 
-		// TODO : commentaires ?
+		// Création de la table Parametrage en base de données à l'activation du pluggin
 		function creerTableParametrage() {
 			$charset_collate = $this->wpdb->get_charset_collate();
 

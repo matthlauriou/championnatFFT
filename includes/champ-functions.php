@@ -1,6 +1,6 @@
 <?php
-  // TODO : Pas de franglish
-  // Add a new top level menu link to the ACP
+  
+  // Ajout d'un menu dans le dashboard administration
   function championnats_menu() {
     add_menu_page("Championnats Options", "Championnats","manage_options", "championnats", "affichageListeEquipe", plugins_url('/championnatFFT/img/TCicon.png'));
     add_submenu_page("championnats","Liste Equipe", "Liste Equipe","manage_options", "listequipe", "affichageListeEquipe");
@@ -8,21 +8,21 @@
     add_submenu_page("championnats","Parametrage", "Paramétrage","manage_options", "parametrage", "parametrage");
   }
 
-  // TODO : Pas de franglish
-  // Hook the 'admin_menu' action hook, run the function named 'championnats_menu()'
+  
+  // Appeler la fonction 'championnats_menu()'et la réaliser
   add_action( 'admin_menu', 'championnats_menu' );
 
-  // TODO : commentaires ?
+  //fonction pour rediriger vers la page d'affichage de la liste des équipes
   function affichageListeEquipe() {
   	include "affichageListeEquipe.php";
   }
 
-  // TODO : commentaires ?
+  //fonction pour rediriger vers la page de gestion des équipes
   function gestionEquipe() {
   	include "gestionEquipe.php";
   }
 
-  // TODO : commentaires ?
+  //fonction pour rediriger vers la page de paramétrage
   function parametrage() {
     include "parametrage.php";
   }

@@ -7,22 +7,22 @@
   Author: TC-Grandchamp
   */
 
-  // TODO : Pas de franglish
-  // Include champ-functions.php, use require_once to stop the script if mfp-functions.php is not found
+  
+  // Inclure champ-functions.php, utilise require_once pour arreter le deroulement du script si champ-functions.php n'est pas trouvé
   require_once plugin_dir_path(__FILE__).'includes/champ-functions.php';
 
   defined('ABSPATH') or die('Hey, you can\t access this file, you silly humain!!!');
 
-  // TODO : commentaires ?
+  //Classe php dans l'object de respecter la Programmation Orienté Objet
   class ChampionnatsPlugin
   {
-      // TODO : commentaires ?
+      //fonction générale de la classe
       function __construct()
       {
-        // TODO : commentaires ?
+        //règles à appliquer de manières générale
       }
 
-      // TODO : commentaires ?
+      // lecture des scripts mis en file d'attente
       function register()
       {
         add_action('admin_enqueue_scripts', array(
@@ -31,10 +31,10 @@
         ));
       }
       
-      // TODO : commentaires ?
+      // fonction pour la mise en attente des scripts
       function enqueue()
       {
-        //enqueue all our scripts
+        //mise en attente des scripts exemple css js etc pour la lecture
         wp_enqueue_style('mypluginstyle', plugins_url('/styles/style.css', __FILE__), array(
             ''
         ));
@@ -73,21 +73,21 @@
       }
   }
 
-  // TODO : commentaires ?
+  //verifier que la classe existe 
   if (class_exists('ChampionnatsPlugin')) {
     $championnatsPlugin = new ChampionnatsPlugin();
     $championnatsPlugin->register();
   }
 
-  // TODO : A mieux commenter
-  //activation
+  // Appel de la fonction d'activationPlugin et réalisation des actions associées
+  
   register_activation_hook(__FILE__, array(
     $championnatsPlugin,
     'activationPlugin'
   ));
 
-  // TODO : A mieux commenter
-  //deactivate
+  // Appel de la fonction de desactivationPlugin et réalisation des actions associées
+  
   register_deactivation_hook(__FILE__, array(
     $championnatsPlugin,
     'desactivationPlugin'
