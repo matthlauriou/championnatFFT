@@ -22,7 +22,6 @@
         $cle = $parametre->cle;
         $valeur = $parametre->valeur;
 
-        // TODO : URL_POST & URL_FEUILLE_MATCH a définir dans des variables GLOBALES tout comme les noms des tables de la BDD
         if (strcmp($cle, $URL_POST) == 0) {
             $url_post = $valeur;
         } elseif (strcmp($cle, $URL_FEUILLE_MATCH) == 0) {
