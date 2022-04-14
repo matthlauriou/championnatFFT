@@ -13,6 +13,8 @@
 
   defined('ABSPATH') or die('Hey, you can\t access this file, you silly humain!!!');
 
+  require_once dirname( __FILE__ ) . '../includes/Championnat_shortcode.php';
+
   //Classe php dans l'object de respecter la Programmation Orienté Objet
   class ChampionnatsPlugin
   {
