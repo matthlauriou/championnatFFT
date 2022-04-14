@@ -3,6 +3,7 @@
   // Actions possibles sur la gestion d'une équipe
   $MODIFIER = "modifier";
   $CREER = "creer";
+  $SUPPRIMER = "supprimer";
   
   // Clés de la table "paramétrage"
   $URL_POST = "URL_POST";
