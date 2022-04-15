@@ -78,16 +78,14 @@
         $context = stream_context_create($option);
         //on transforme le json en phrase
         $result = file_get_contents($url, false, $context);
+
         //arriver a parser le json utilise json_decode pour extraire les informations de la phrase json creer et recuperer par le file_get_contents() le json_encode() serai pour passer des données php en phrase json
-        //$decode_json = json_decode($result,true);//true retourne un tableau d'objets false un objets ,null objets ou tableau d'objets si const JSON_OBJECT_AS_ARRAY à été defini dans le parametre flags
+
+        var_dump(json_decode($result));
+        //retourn null ce qui veut dire le paramètre json n'a pu être décodé ou si les données encodées sont plus profondes que la limite d'imbrication fournie.
         
         //5 parcourir le fichier JSON
-        /*foreach($decode_json as $key => $value){
-            //boucler pour trouver toute les occurences de chaque entrée
-            $numéro_championnat = $decode_json[$key]["fiche_championnat"];
-            $division_championnat = $decode_json[$key]["division"];
-            $poule_championnat = $decode_json[$key]["poule"];
-        }*/
+     
         if($result===FALSE){ 
         echo "Une erreur est survenue lors de la lecture des données";
         die;

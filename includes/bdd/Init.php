@@ -16,7 +16,7 @@
 				id mediumint(11) NOT NULL AUTO_INCREMENT,
 				libelle varchar(100) NOT NULL,
 				annee varchar(4) NOT NULL,
-				numero_championnat mediumint(11) NOT NULL,
+				numero_championnat bigint(20) NOT NULL,
 				division_championnat mediumint(11) NOT NULL,
 				phase_championnat mediumint(11) NOT NULL,
 				poule_championnat mediumint(11) NOT NULL,

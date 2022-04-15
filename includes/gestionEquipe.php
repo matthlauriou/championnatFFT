@@ -27,7 +27,7 @@
 			$poule_championnat = "";
 			$numero_equipe = "";
 		// Vérification si nous sommes dans une action de modification d'équipe
-		} elseif (strcmp($_GET["action"], $MODIFIER) == 0) {
+		}elseif (strcmp($_GET["action"], $MODIFIER) == 0) {
 			// Modification d'équipe, on intialise l'ensemble des valeurs avec les valeurs de la BDD
 			$idEquipe = $_GET['idEquipe'];
 			$equipe = $requetes->getEquipe($idEquipe);
@@ -41,6 +41,15 @@
 			$phase_championnat = $equipe->phase_championnat;
 			$poule_championnat = $equipe->poule_championnat;
 			$numero_equipe = $equipe->numero_equipe;
+		// Vérification si nous sommes dans une action de suppression d'équipe	
+		} elseif (strcmp($_GET["action"], $SUPPRIMER) == 0) {
+			// Suppression d'équipe, on supprime l'ensemble des valeurs  de la BDD
+			$idEquipe = $_GET["idEquipe"];
+			$equipe = $requetes->deleteEquipe($idEquipe);
+			//on afficher un message
+			$zoneInformation = true;
+			$message = "L'Equipe ".$_GET["idEquipe"]." a bien été supprimée";
+				
 		} else {
 			// L'action souhaitée n'existe pas, on remonte une erreur
 			$zoneInformation = true;
@@ -109,23 +118,23 @@
 					</tr>
 					<tr>
 						<td>Numéro de Championnat</td>
-						<td><input type='text' name='txt_numero_championnat'pattern='[0-9]+' required='required' value='$numero_championnat'></td>
+						<td><input type='text' name='txt_numero_championnat'pattern='[-+]?[0-9]+(\.[0-9]+)?' required='required' value='$numero_championnat'></td>
 					</tr>
 					<tr>
 						<td>Division</td>
-						<td><input type='text' name='txt_division_championnat'pattern='[0-9]+' required='required' value='$division_championnat'></td>
+						<td><input type='text' name='txt_division_championnat'pattern='[-+]?[0-9]+(\.[0-9]+)?' required='required' value='$division_championnat'></td>
 					</tr>
 					<tr>
 						<td>Phase</td>
-						<td><input type='text' name='txt_phase_championnat'pattern='[0-9]+' required='required' value='$phase_championnat'></td>
+						<td><input type='text' name='txt_phase_championnat'pattern='[-+]?[0-9]+(\.[0-9]+)?' required='required' value='$phase_championnat'></td>
 					</tr>
 					<tr>
 						<td>Poule</td>
-						<td><input type='text' name='txt_poule_championnat' pattern='[0-9]+' required='required' value='$poule_championnat'></td>
+						<td><input type='text' name='txt_poule_championnat' pattern='[-+]?[0-9]+(\.[0-9]+)?' required='required' value='$poule_championnat'></td>
 					</tr>
 					<tr>
 						<td>Equipe</td>
-						<td><input type='text' name='txt_numero_equipe' pattern='[0-9]+' required='required' value ='$numero_equipe'></td>
+						<td><input type='text' name='txt_numero_equipe' pattern='[-+]?[0-9]+(\.[0-9]+)?' required='required' value ='$numero_equipe'></td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
