@@ -78,7 +78,7 @@
 						Equipe : " . $numero_equipe . "</td>
 	                <td><a href='?page=gestionEquipe&action=modifier&idEquipe=" . $id . "' name='sub_modifier'>Modifier</a>
 	                <br/>
-	                <a href='?page=gestionEquipe&action=supprimer&idEquipe=" . $id . "' name='sub_supprimer'>Supprimer</a>
+	                <a href='?page=gestionEquipe&action=supprimer=" . $id . "' name='sub_supprimer'>Supprimer</a>
 	                </td>
 	            </tr>
 	            ";

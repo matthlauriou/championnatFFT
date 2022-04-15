@@ -3,7 +3,7 @@
     // Fonction qui s'applique quand le shortcode est activé 
     function championnatFFT_resultats($atts) { 
 
-        require plugin_dir_path(__FILE__).'/bdd/Requetes.php';
+        require_once plugin_dir_path(__FILE__).'/bdd/Requetes.php';
         require plugin_dir_path(__FILE__).'/constantes/constantes.php';
         global $wpdb;
         $requetes = new Requetes($wpdb);
@@ -32,7 +32,7 @@
         $division_championnat = $equipe->division_championnat; 
         $phase_championnat = $equipe->phase_championnat;
         $poule_championnat = $equipe->poule_championnat;
-        //$numero_equipe = $equipe->numero_equipe;
+        $numero_equipe = $equipe->numero_equipe;
         
         //2 récupérer les données de parametrage
 
@@ -61,12 +61,12 @@
         //l'url ou on veut recupérer les données    la requète en mode POST en fonction de la feuille de match choisi $url_feuille_match et du pattern $url_post
         $url = $url_post;
         //Les données que l'on veut envoyer en POST 
-        $data = array('fiche_championnat'=>$numero_championnat,'division'=>$division_championnat,'phase'=>$phase_championnat,'poule'=>$poule_championnat,'formSubmit'=>true); //rajouter 'equipe'=>$numero_equipe
+        $data = array('fiche_championnat'=>$numero_championnat,'division'=>$division_championnat,'phase'=>$phase_championnat,'poule'=>$poule_championnat,'equipe'=>$numero_equipe,'formSubmit'=>true);
         //la requete 
         $option = array(
             'http'=> array( 
                 //header
-                'header'=> "content-type: application/x-www-form-urlencoded",
+                'header'=> "content-type: application/x-www-form-urlencoded\r\n",
                 //methode
                 'method'=>'POST',
                 //le body facultatif      url-ifier les donnees pour le POST
@@ -96,7 +96,8 @@
         //7 fonction de récupération match et résultat
 
         //8 afficher le résultat des fonctions sur la page de l'équipe      
-        return $result;
+        return $result;//le fichier json est en raw ....le passer en pretty et sans le header
+        
         
         //arriver a n'avoir que le body dans la réponse json ?
 
