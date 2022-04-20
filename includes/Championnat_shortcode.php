@@ -90,7 +90,7 @@
         
         var_dump($jsonEquipes);
 
-        
+        //6 fonction de récupération des classement 
         $classement = new Classement($jsonEquipes);
         print_r($classement);
 
@@ -98,8 +98,8 @@
             {
                 "nom": "nom de l'équipqe",
                 "place" : 1,
-                "nbVictoire" : 2,
-                "nbDefaite" : 1,
+                "nbVictoires" : 2,
+                "nbDefaites" : 1,
                 "nombreMatchesGagnes" : 1,
                 "nombreMatchesPerdus" : 1,
                 "nombreSetsGagnes" : 1,
@@ -116,8 +116,6 @@
             die;
         }
         
-        //6 fonction de récupération des classement 
-
         //7 fonction de récupération match et résultat
 
         //8 afficher le résultat des fonctions sur la page de l'équipe
