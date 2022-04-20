@@ -3,80 +3,84 @@
 
 		public string $nom;
         public int $place;
+        public int $points;
         public int $nbVictoires;
         public int $nbDefaites;
-        public int $nombreMatchesGagnes;
-        public int $nombreMatchesPerdus;
+        public int $diffNombreMatchs;
+        public int $nombreMatchsGagnes;
+        public int $nombreMatchsPerdus;
+        public int $diffNombreSets;
         public int $nombreSetsGagnes;
         public int $nombreSetsPerdus;
+        public int $diffNombreJeux;
         public int $nombreJeuxGagnes;
         public int $nombreJeuxPerdus;
 
 		function __construct($jsonEquipe) {
-
-            //récupération des donnée est ok mais les paramêtre déclenches des erreurs 
-
             $this->nom = $jsonEquipe["name"];
-            //print_r($this->nom);
-            $classementEquipes = $jsonEquipe ["classement"];
-            $this->place = $classementEquipes["place"];
-            //print_r($this->place);
-            if(isset($classementEquipes["victoires"]) == 0){
-                $nbVictoires = 0;
-            }else{
-                $this->nbVictoires = $classementEquipes["victoires"];
-                //print_r($this->nbVictoires);
+
+            // Descente d'un niveau pour récupérer les valeurs du championnat d'une équipe
+            $jsonClassementEquipes = $jsonEquipe["classement"];
+
+            $this->place = $jsonClassementEquipes["place"];
+
+            if (isset($jsonClassementEquipes["points"]) == 0){
+                $this->points = 0;
+            } else {
+                $this->points = $jsonClassementEquipes["points"];
             }
-            if(isset($classementEquipes["defaites"]) == 0){
-                $nbDefaites = 0;
-            }else{
-                $this->nbDefaites = $classementEquipes["defaites"];
-                //print_r($this->nbDefaites);
+
+            if (isset($jsonClassementEquipes["victoires"]) == 0){
+                $this->nbVictoires = 0;
+            } else {
+                $this->nbVictoires = $jsonClassementEquipes["victoires"];
             }
-            if(isset($classementEquipes["nombreMatchesGagnes"])== 0){
-                $nombreMatchesGagnes = 0;
-            }else{
-                $this->nombreMatchesGagnes = $classementEquipes["nombreMatchesGagnes"];
-                //print_r($this->nombreMatchesGagnes);
+
+            if (isset($jsonClassementEquipes["defaites"]) == 0){
+                $this->nbDefaites = 0;
+            } else {
+                $this->nbDefaites = $jsonClassementEquipes["defaites"];
             }
-            if(isset($classementEquipes["nombreMatchesPerdus"])== 0){
-                $nombreMatchesPerdus = 0;
-            }else{
-                $this->nombreMatchesPerdus = $classementEquipes["nombreMatchesPerdus"];
-                //print_r($this->nombreMatchesPerdus);
+
+            if (isset($jsonClassementEquipes["nombreMatchesGagnes"]) == 0){
+                $this->nombreMatchesGagnes = 0;
+            } else {
+                $this->nombreMatchesGagnes = $jsonClassementEquipes["nombreMatchesGagnes"];
             }
-            if(isset($classementEquipes["nombreSetsGagnes"])== 0){
-                $nombreSetsGagnes = 0;
-            }else{
-                $this->nombreSetsGagnes = $classementEquipes["nombreSetsGagnes"];
-                //print_r($this->nombreSetsGagnes);
+
+            if (isset($jsonClassementEquipes["nombreMatchesPerdus"]) == 0){
+                $this->nombreMatchesPerdus = 0;
+            } else {
+                $this->nombreMatchesPerdus = $jsonClassementEquipes["nombreMatchesPerdus"];
             }
-            if(isset($classementEquipes["nombreSetsPerdus"])== 0){
-                $nombreSetsPerdus = 0;
-            }else{
-                $this->nombreSetsPerdus = $classementEquipes["nombreSetsPerdus"];
-                //print_r($this->nombreSetsPerdus);
+
+            if (isset($jsonClassementEquipes["nombreSetsGagnes"]) == 0){
+                $this->nombreSetsGagnes = 0;
+            } else {
+                $this->nombreSetsGagnes = $jsonClassementEquipes["nombreSetsGagnes"];
             }
-            if(isset($classementEquipes["nombreJeuxGagnes"])== 0){
-                $nombreJeuxGagnes = 0;
-            }else{
-                $this->nombreJeuxGagnes = $classementEquipes["nombreJeuxGagnes"];
-                //print_r($this->nombreJeuxGagnes);
+
+            if (isset($jsonClassementEquipes["nombreSetsPerdus"]) == 0){
+                $this->nombreSetsPerdus = 0;
+            } else {
+                $this->nombreSetsPerdus = $jsonClassementEquipes["nombreSetsPerdus"];
             }
-            if(isset($classementEquipes["nombreJeuxPerdus"])== 0){
-                $nombreJeuxPerdus = 0;
-            }else{
-                $this->nombreJeuxPerdus = $classementEquipes["nombreJeuxPerdus"];
-                //print_r($this->nombreJeuxPerdus);
+
+            if (isset($jsonClassementEquipes["nombreJeuxGagnes"]) == 0){
+                $this->nombreJeuxGagnes = 0;
+            } else {
+                $this->nombreJeuxGagnes = $jsonClassementEquipes["nombreJeuxGagnes"];
+            }
+
+            if (isset($jsonClassementEquipes["nombreJeuxPerdus"]) == 0){
+                $this->nombreJeuxPerdus = 0;
+            } else {
+                $this->nombreJeuxPerdus = $jsonClassementEquipes["nombreJeuxPerdus"];
             }
             
-            //mettre ne place les opérations pour les différences 
-            /*
-            pour chaque equipe 
-            $nombreMatches = $nombreMatchesGagnes - $nombreMatchesPerdus;
-            $nombreSets = $nombreSetsGagnes - $nombreSetsPerdus;
-            $nombreJeux = $nombreJeuxGagnes - $nombreJeuxPerdus;
-            */    
+            $this->diffNombreMatchs = $this->nombreMatchesGagnes - $this->nombreMatchesPerdus;
+            $this->diffNombreSets = $this->nombreSetsGagnes - $this->nombreSetsPerdus;
+            $this->diffNombreJeux = $this->nombreJeuxGagnes - $this->nombreJeuxPerdus;
 		}
 	}
 ?>

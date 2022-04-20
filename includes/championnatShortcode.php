@@ -3,98 +3,123 @@
     // Fonction qui s'applique quand le shortcode est activé 
     function championnatFFT_resultats($atts) { 
 
-        
-        require plugin_dir_path(__FILE__).'/utils/Classement.php';
         require_once plugin_dir_path(__FILE__).'/bdd/Requetes.php';
-        require plugin_dir_path(__FILE__).'/constantes/constantes.php';
+        require_once plugin_dir_path(__FILE__).'/constantes/constantes.php';
+        require_once plugin_dir_path(__FILE__).'/utils/Classement.php';
         require_once plugin_dir_path(__FILE__).'/utils/Equipe.php';
+        require_once plugin_dir_path(__FILE__).'/utils/Matchs.php';
+
         global $wpdb;
         $requetes = new Requetes($wpdb);
       
-        //1 récupérer les données de l'équipe
+        // 1 - Récupérer les données de l'équipe depuis la BDD
 
         //recupérer l'id de l'equipe 
-        $atts = shortcode_atts( array(
-            'id'=>''//doit recupérer l'attribut id du shortcode
-            ),$atts,'championnatFFT');
+        $atts = shortcode_atts(
+            array(
+                'id' => '' //doit recupérer l'attribut id du shortcode
+            ), $atts, 'championnatFFT');
 
         if(!$atts['id']){
-            $message="l'id est invalide";
+            // TODO : faire une balise HTML pour le message s'affiche joliment
+            $message = "L'id est invalide";
             return $message;
         }
 
         //quand on met l'attribut id dans le shortcode cela declanche une erreur signalant un json invalide
         $idEquipe = $atts['id']; //doit changer en fonction de l'id recupérer dans le shortcode $idEquipe = $atts['id'];
         //utiliser la fonction getEquipe($idEquipe)
-        $equipe = $requetes->getEquipe($idEquipe);
-        //valoriser les variables
+        $donneesEquipeBDD = $requetes->getEquipe($idEquipe);
 
-        $numero_championnat = $equipe->numero_championnat;
-        $division_championnat = $equipe->division_championnat; 
-        $phase_championnat = $equipe->phase_championnat;
-        $poule_championnat = $equipe->poule_championnat;
+        //valoriser les variables
+        $numeroChampionnatEquipeBDD = $donneesEquipeBDD->numero_championnat;
+        $divisionChampionnatEquipeBDD = $donneesEquipeBDD->division_championnat; 
+        $phaseChampionnatEquipeBDD = $donneesEquipeBDD->phase_championnat;
+        $pouleChampionnatEquipeBDD = $donneesEquipeBDD->poule_championnat;
+        $identifiantEquipeBDD = $donneesEquipeBDD->numero_equipe;
         
-        
-        //2 récupérer les données de parametrage
+        // 2 - Récupérer les données de Paramétrage depuis la BDD
 
         //utiliser la fonction getAllParametrage
         $listeParametres = $requetes->getAllParametrages();
-        // on as donc les valeur de $URL_POST, $URL_FEUILLE_MATCH
+        // on a donc les valeurs de $URL_POST, $URL_FEUILLE_MATCH
         //recupère la clé URL_POST dont la $valeur est en base
+        $urlDonneesChampionnat = '';
+        $urlPatternFeuilleMatch = '';
         foreach ($listeParametres as $parametre) {
             $cle = $parametre->cle;
             $valeur = $parametre->valeur;
     
             if (strcmp($cle, $URL_POST) == 0) {
-                $url_post = $valeur;
+                $urlDonneesChampionnat = $valeur;
             } elseif (strcmp($cle, $URL_FEUILLE_MATCH) == 0) {
-                $url_feuille_match = $valeur;
+                $urlPatternFeuilleMatch = $valeur;
             }
         }
 
-        //3 établir le curl 
+        if(strcmp($urlDonneesChampionnat, '') == 0 || strcmp($urlPatternFeuilleMatch, '') == 0) {
+            // TODO : faire une balise HTML pour le message s'affiche joliment
+            $message = "URLs invalides";
+            return $message;
+        }
 
-        //simulation d'un remplissage de formulaire!!
+        // 3 - Préparer le curl
 
-        //l'url ou on veut recupérer les données    
-        $url = $url_post;
         //Les données que l'on veut envoyer en POST 
-        $data = array('fiche_championnat'=>$numero_championnat,'division'=>$division_championnat,'phase'=>$phase_championnat,'poule'=>$poule_championnat,'formSubmit'=>true);
-        //la requete 
-        $option = array(
-            'http'=> array( 
-                //header
-                'header'=> "content-type: application/x-www-form-urlencoded\r\n" .
-                        "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n",
-                'method'=>'POST',
-                //le body facultatif      url-ifier les donnees pour le POST
-                'content'=>http_build_query($data)
+        $body = array('fiche_championnat' => $numeroChampionnatEquipeBDD, 'division' => $divisionChampionnatEquipeBDD,
+            'phase' => $phaseChampionnatEquipeBDD, 'poule' => $pouleChampionnatEquipeBDD, 'formSubmit' => true);
+        
+        $options = array(
+            'http' => array( 
+                'header' => "content-type: application/x-www-form-urlencoded\r\n"
+                        ."User-Agent: " .$_SERVER['HTTP_USER_AGENT'],
+                'method' => 'POST',
+                'content' => http_build_query($body)
             ),
-            //verifier le certificat SSL (secure sockets layer)
-            'ssl'=>array(
-                'verify_peer'=>false,
-                'verify_peer_name'=>false,
-                'allow_self_singed'=>true
-            )    
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_singed' => true
+            )
         );
 
-        //4 récupérer le fichier le JSON
-        $context = stream_context_create($option);
-        //on transforme le json en phrase
-        $result = file_get_contents($url, false, $context);
+        $context = stream_context_create($options);
+
+        // 4 - Récupérer le JSON depuis le CURL
+        $result = file_get_contents($urlDonneesChampionnat, false, $context);
+
+        // TODO gérer une erreur de retour de la réponse HTTP
 
         //parser le json pour extraire les informations de la phrase json creer et recuperer par le file_get_contents()
-        $parsed_Json = json_decode($result,true);
-        //5 parcourir le fichier JSON
-        $resultsEquipes = $parsed_Json['results'];
-        $raw_data = $resultsEquipes["raw_data"];
-        $jsonEquipes = $raw_data["equipes"];
-        
-        //var_dump($jsonEquipes);
+        $parsedJson = json_decode($result, true);
 
-        //6 fonction de récupération des classement 
+        // 5 - Parcourir le fichier JSON
+        $parsedJsonResults = $parsedJson['results'];
+        $parsedJsonResultsRawData = $parsedJsonResults["raw_data"];
+        $jsonEquipes = $parsedJsonResultsRawData["equipes"];
+
+        $parsedJsonResultsRawDataComponents = $parsedJsonResults["components"];
+        $parsedJsonResultsRawDataComponentsCalendrier = $parsedJsonResultsRawDataComponents["calendrier"];
+        $jsonCalendrierMatchs = $parsedJsonResultsRawDataComponentsCalendrier["rows"];
+
+        // 6 - Fonction de récupération des classement 
         $classement = new Classement($jsonEquipes);
-        print_r($classement);
+
+        // 7 - Générer la liste des matchs
+        $matchs = new Matchs($identifiantEquipeBDD, $urlPatternFeuilleMatch, $jsonCalendrierMatchs);
+
+        // print("<pre>".print_r($matchs,true)."</pre>");
+       
+        // 8 - Trier $classement et $matchs si besoin : pour le moment N/A
+     
+        if($result===FALSE){ 
+            echo "Une erreur est survenue lors de la lecture des données";
+            die;
+        }
+
+        //8 afficher le résultat des fonctions sur la page de l'équipe
+
+        $affichageHTML =  "<figure class='wp-block-table is-style-stripes'><table>";
 
         /*
         echo "<h1>". $nom ."</h1>
@@ -110,20 +135,8 @@
         <td>". $nombreJeuxPerdus ."</td>
         </tr>
         ";*/
-       
-        //trier en fonction du numéro d'équipe en comparant la base et le numéro dans le json
-     
-        if($result===FALSE){ 
-            echo "Une erreur est survenue lors de la lecture des données";
-            die;
-        }
         
-        //7 fonction de récupération match et résultat
-
-        //8 afficher le résultat des fonctions sur la page de l'équipe
-        
-        return $result;//le fichier json est en raw 
-        
+        return $affichageHTML;
     }
     // ajouter shortcode
     add_shortcode('championnatFFT', 'championnatFFT_resultats');
