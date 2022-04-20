@@ -10,10 +10,9 @@
   
   // Inclure champ-functions.php, utilise require_once pour arreter le deroulement du script si champ-functions.php n'est pas trouvé
   require_once plugin_dir_path(__FILE__).'includes/champ-functions.php';
+  require_once plugin_dir_path( __FILE__ ).'includes/championnat_shortcode.php';
 
   defined('ABSPATH') or die('Hey, you can\t access this file, you silly humain!!!');
-
-  require_once dirname( __FILE__ ) . '../includes/championnat_shortcode.php';
 
   //Classe php dans l'object de respecter la Programmation Orienté Objet
   class ChampionnatsPlugin
