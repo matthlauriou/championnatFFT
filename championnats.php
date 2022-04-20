@@ -10,7 +10,7 @@
   
   // Inclure champ-functions.php, utilise require_once pour arreter le deroulement du script si champ-functions.php n'est pas trouvé
   require_once plugin_dir_path(__FILE__).'includes/champ-functions.php';
-  require_once plugin_dir_path( __FILE__ ).'includes/championnat_shortcode.php';
+  require_once plugin_dir_path( __FILE__ ).'includes/championnatShortcode.php';
 
   defined('ABSPATH') or die('Hey, you can\t access this file, you silly humain!!!');
 
