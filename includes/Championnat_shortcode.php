@@ -3,6 +3,7 @@
     // Fonction qui s'applique quand le shortcode est activé 
     function championnatFFT_resultats($atts) { 
 
+        require plugin_dir_path(__FILE__).'/utils/Classement.php';
         require_once plugin_dir_path(__FILE__).'/bdd/Requetes.php';
         require plugin_dir_path(__FILE__).'/constantes/constantes.php';
         global $wpdb;
@@ -22,23 +23,20 @@
 
         //quand on met l'attribut id dans le shortcode cela declanche une erreur signalant un json invalide
         $idEquipe = $atts['id']; //doit changer en fonction de l'id recupérer dans le shortcode $idEquipe = $atts['id'];
-        print_r($idEquipe);
         //utiliser la fonction getEquipe($idEquipe)
         $equipe = $requetes->getEquipe($idEquipe);
         //valoriser les variables
-        print_r($equipe);
 
         $numero_championnat = $equipe->numero_championnat;
         $division_championnat = $equipe->division_championnat; 
         $phase_championnat = $equipe->phase_championnat;
         $poule_championnat = $equipe->poule_championnat;
-        $numero_equipe = $equipe->numero_equipe;
+        
         
         //2 récupérer les données de parametrage
 
         //utiliser la fonction getAllParametrage
         $listeParametres = $requetes->getAllParametrages();
-        print_r($listeParametres);
         // on as donc les valeur de $URL_POST, $URL_FEUILLE_MATCH
         //recupère la clé URL_POST dont la $valeur est en base
         foreach ($listeParametres as $parametre) {
@@ -51,26 +49,30 @@
                 $url_feuille_match = $valeur;
             }
         }
-        
-        print_r($url_post);
 
         //3 établir le curl 
 
         //simulation d'un remplissage de formulaire!!
 
-        //l'url ou on veut recupérer les données    la requète en mode POST en fonction de la feuille de match choisi $url_feuille_match et du pattern $url_post
+        //l'url ou on veut recupérer les données    
         $url = $url_post;
         //Les données que l'on veut envoyer en POST 
-        $data = array('fiche_championnat'=>$numero_championnat,'division'=>$division_championnat,'phase'=>$phase_championnat,'poule'=>$poule_championnat,'equipe'=>$numero_equipe,'formSubmit'=>true);
+        $data = array('fiche_championnat'=>$numero_championnat,'division'=>$division_championnat,'phase'=>$phase_championnat,'poule'=>$poule_championnat,'formSubmit'=>true);
         //la requete 
         $option = array(
             'http'=> array( 
                 //header
-                'header'=> "content-type: application/x-www-form-urlencoded\r\n",
-                //methode
+                'header'=> "content-type: application/x-www-form-urlencoded\r\n" .
+                        "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n",
                 'method'=>'POST',
                 //le body facultatif      url-ifier les donnees pour le POST
                 'content'=>http_build_query($data)
+            ),
+            //verifier le certificat SSL (secure sockets layer)
+            'ssl'=>array(
+                'verify_peer'=>false,
+                'verify_peer_name'=>false,
+                'allow_self_singed'=>true
             )    
         );
 
@@ -79,28 +81,49 @@
         //on transforme le json en phrase
         $result = file_get_contents($url, false, $context);
 
-        //arriver a parser le json utilise json_decode pour extraire les informations de la phrase json creer et recuperer par le file_get_contents() le json_encode() serai pour passer des données php en phrase json
-
-        var_dump(json_decode($result));
-        //retourn null ce qui veut dire le paramètre json n'a pu être décodé ou si les données encodées sont plus profondes que la limite d'imbrication fournie.
-        
+        //parser le json pour extraire les informations de la phrase json creer et recuperer par le file_get_contents()
+        $parsed_Json = json_decode($result,true);
         //5 parcourir le fichier JSON
+        $resultsEquipes = $parsed_Json['results'];
+        $raw_data = $resultsEquipes["raw_data"];
+        $jsonEquipes = $raw_data["equipes"];
+        
+        var_dump($jsonEquipes);
+
+        
+        $classement = new Classement($jsonEquipes);
+        print_r($classement);
+
+        /* ==>>> [
+            {
+                "nom": "nom de l'équipqe",
+                "place" : 1,
+                "nbVictoire" : 2,
+                "nbDefaite" : 1,
+                "nombreMatchesGagnes" : 1,
+                "nombreMatchesPerdus" : 1,
+                "nombreSetsGagnes" : 1,
+                "nombreSetsPerdus" : 1,
+                "nombreJeuxGagnes" : 1,
+                "nombreJeuxPerdus" : 1
+            }
+        ]
+        */
+        //trier en fonction du numéro d'équipe en comparant la base et le numéro dans le json
      
         if($result===FALSE){ 
-        echo "Une erreur est survenue lors de la lecture des données";
-        die;
+            echo "Une erreur est survenue lors de la lecture des données";
+            die;
         }
         
         //6 fonction de récupération des classement 
 
         //7 fonction de récupération match et résultat
 
-        //8 afficher le résultat des fonctions sur la page de l'équipe      
-        return $result;//le fichier json est en raw ....le passer en pretty et sans le header
+        //8 afficher le résultat des fonctions sur la page de l'équipe
         
+        return $result;//le fichier json est en raw 
         
-        //arriver a n'avoir que le body dans la réponse json ?
-
     }
     // ajouter shortcode
     add_shortcode('championnatFFT', 'championnatFFT_resultats');
