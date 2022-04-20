@@ -3,9 +3,11 @@
     // Fonction qui s'applique quand le shortcode est activé 
     function championnatFFT_resultats($atts) { 
 
+        
         require plugin_dir_path(__FILE__).'/utils/Classement.php';
         require_once plugin_dir_path(__FILE__).'/bdd/Requetes.php';
         require plugin_dir_path(__FILE__).'/constantes/constantes.php';
+        require_once plugin_dir_path(__FILE__).'/utils/Equipe.php';
         global $wpdb;
         $requetes = new Requetes($wpdb);
       
@@ -88,27 +90,27 @@
         $raw_data = $resultsEquipes["raw_data"];
         $jsonEquipes = $raw_data["equipes"];
         
-        var_dump($jsonEquipes);
+        //var_dump($jsonEquipes);
 
         //6 fonction de récupération des classement 
         $classement = new Classement($jsonEquipes);
         print_r($classement);
 
-        /* ==>>> [
-            {
-                "nom": "nom de l'équipqe",
-                "place" : 1,
-                "nbVictoires" : 2,
-                "nbDefaites" : 1,
-                "nombreMatchesGagnes" : 1,
-                "nombreMatchesPerdus" : 1,
-                "nombreSetsGagnes" : 1,
-                "nombreSetsPerdus" : 1,
-                "nombreJeuxGagnes" : 1,
-                "nombreJeuxPerdus" : 1
-            }
-        ]
-        */
+        /*
+        echo "<h1>". $nom ."</h1>
+        <tr>
+        <td>". $place ."</td>
+        <td>". $nbVictoires ."</td>
+        <td>". $nbDefaites ."</td>
+        <td>". $nombreMatchesGagnes ."</td>
+        <td>". $nombreMatchesPerdus ."</td>
+        <td>". $nombreSetsGagnes ."</td>
+        <td>". $nombreSetsPerdus ."</td>
+        <td>". $nombreJeuxGagnes ."</td>
+        <td>". $nombreJeuxPerdus ."</td>
+        </tr>
+        ";*/
+       
         //trier en fonction du numéro d'équipe en comparant la base et le numéro dans le json
      
         if($result===FALSE){ 
