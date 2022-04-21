@@ -84,14 +84,21 @@
         );
 
         $context = stream_context_create($options);
-
-        // 4 - Récupérer le JSON depuis le CURL
-        $result = file_get_contents($urlDonneesChampionnat, false, $context);
-
-        if($result===FALSE){ 
+        if($context === 0){ 
             echo "Une erreur est survenue lors de la lecture des données";
             die;
+        } else{
+            // 4 - Récupérer le JSON depuis le CURL
+            $result = file_get_contents($urlDonneesChampionnat, false, $context);
+
+            if($result === FALSE){ 
+                echo "Une erreur est survenue lors de la lecture des données";
+                die;
+            }
+
         }
+
+        
 
         // TODO gérer une erreur de retour de la réponse HTTP
 
@@ -119,6 +126,8 @@
 
         // 9 - Afficher le résultat des fonctions sur la page de l'équipe
 
+        
+        
         $affichageHTML =  "<h1>Le classement</h1><br><figure class='wp-block-table is-style-stripes'><table>
         <tbody>
         <tr>
@@ -130,9 +139,9 @@
         <th>Diff.Jeux</th>
         </tr>
         </tbody></table></figure>";
-
-        $equipes = array();
-        $equipe = new Equipe($jsonEquipes);            
+        
+        $classement = new Classement($jsonEquipes);
+        $equipes = $classement->allEquipe();            
         foreach($equipes as $equipe){
             $nom = $equipe->nom;
             $place = $equipe->place;
@@ -140,18 +149,30 @@
             $diffNombreMatchs = $equipe->diffNombreMatchs;
             $diffNombreSets = $equipe->diffNombreSets;
             $diffNombreJeux = $equipe->diffNombreJeux;
-        }
-        echo "
-        <tr>
-        <td>". $place ."</td>
-        <td>". $nom ."</td>
-        <td>". $points ."</td>
-        <td>". $diffNombreMatchs ."</td>
-        <td>". $diffNombreSets ."</td>
-        <td>". $diffNombreJeux ."</td>
-        </tr>
-        ";
         
+        echo"<tr>
+        <td>$place </td>
+        <td>$nom </td>
+        <td>$points </td>
+        <td>$diffNombreMatchs </td>
+        <td>$diffNombreSets </td>
+        <td>$diffNombreJeux </td>
+        </tr>";
+        }
+
+        
+        /*<h1>Les Résultats</h1><br><figure class='wp-block-table is-style-stripes'><table>
+        <tbody>
+        <tr>
+        <th>Date du Match</th>
+        </tr>
+        </tbody></table></figure>
+        <tr>
+        <td>'. $matchs .'</td>
+        </tr>
+        <a href = '. $lienFeuilleMatch .' >$lienFeuilleMatch</a>";
+        */
+
        
         
         return $affichageHTML;

@@ -25,9 +25,7 @@
             }
             
             // Descente d'un niveau pour récupérer les valeurs du championnat d'une équipe
-            
             $jsonClassementEquipes = $jsonEquipe["classement"];
-            print("<pre>".print_r($jsonClassementEquipes,true)."</pre>");
 
             if (isset($jsonClassementEquipes["place"]) == 0){
                 $this->place = 0;
@@ -93,7 +91,11 @@
             $this->diffNombreSets = $this->nombreSetsGagnes - $this->nombreSetsPerdus;
             $this->diffNombreJeux = $this->nombreJeuxGagnes - $this->nombreJeuxPerdus;
 		}
-
+        function equipe(){
+            return $this->equipe;
+            print_r($equipe);
+        }
+        
         
 	}
 ?>
