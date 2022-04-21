@@ -17,12 +17,23 @@
         public int $nombreJeuxPerdus;
 
 		function __construct($jsonEquipe) {
-            $this->nom = $jsonEquipe["name"];
 
+            if (isset($jsonEquipe["name"]) == 0){
+                $this->nom = '-';
+            } else {
+                $this->nom = $jsonEquipe["name"];
+            }
+            
             // Descente d'un niveau pour récupérer les valeurs du championnat d'une équipe
+            
             $jsonClassementEquipes = $jsonEquipe["classement"];
+            print("<pre>".print_r($jsonClassementEquipes,true)."</pre>");
 
+            if (isset($jsonClassementEquipes["place"]) == 0){
+                $this->place = 0;
+            } else {
             $this->place = $jsonClassementEquipes["place"];
+            }
 
             if (isset($jsonClassementEquipes["points"]) == 0){
                 $this->points = 0;
@@ -82,5 +93,7 @@
             $this->diffNombreSets = $this->nombreSetsGagnes - $this->nombreSetsPerdus;
             $this->diffNombreJeux = $this->nombreJeuxGagnes - $this->nombreJeuxPerdus;
 		}
+
+        
 	}
 ?>

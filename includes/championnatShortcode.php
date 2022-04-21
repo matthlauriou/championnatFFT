@@ -88,6 +88,11 @@
         // 4 - Récupérer le JSON depuis le CURL
         $result = file_get_contents($urlDonneesChampionnat, false, $context);
 
+        if($result===FALSE){ 
+            echo "Une erreur est survenue lors de la lecture des données";
+            die;
+        }
+
         // TODO gérer une erreur de retour de la réponse HTTP
 
         //parser le json pour extraire les informations de la phrase json creer et recuperer par le file_get_contents()
@@ -104,37 +109,50 @@
 
         // 6 - Fonction de récupération des classement 
         $classement = new Classement($jsonEquipes);
+        //print("<pre>".print_r($classement,true)."</pre>");
 
         // 7 - Générer la liste des matchs
         $matchs = new Matchs($identifiantEquipeBDD, $urlPatternFeuilleMatch, $jsonCalendrierMatchs);
-
-        // print("<pre>".print_r($matchs,true)."</pre>");
+        //print("<pre>".print_r($matchs,true)."</pre>");
        
         // 8 - Trier $classement et $matchs si besoin : pour le moment N/A
-     
-        if($result===FALSE){ 
-            echo "Une erreur est survenue lors de la lecture des données";
-            die;
+
+        // 9 - Afficher le résultat des fonctions sur la page de l'équipe
+
+        $affichageHTML =  "<h1>Le classement</h1><br><figure class='wp-block-table is-style-stripes'><table>
+        <tbody>
+        <tr>
+        <th>Classement</th>
+        <th>Equipes</th>
+        <th>Points</th>
+        <th>Diff.Matchs</th>
+        <th>Diff.Sets</th>
+        <th>Diff.Jeux</th>
+        </tr>
+        </tbody></table></figure>";
+
+        $equipes = array();
+        $equipe = new Equipe($jsonEquipes);            
+        foreach($equipes as $equipe){
+            $nom = $equipe->nom;
+            $place = $equipe->place;
+            $points = $equipe->points;
+            $diffNombreMatchs = $equipe->diffNombreMatchs;
+            $diffNombreSets = $equipe->diffNombreSets;
+            $diffNombreJeux = $equipe->diffNombreJeux;
         }
-
-        //8 afficher le résultat des fonctions sur la page de l'équipe
-
-        $affichageHTML =  "<figure class='wp-block-table is-style-stripes'><table>";
-
-        /*
-        echo "<h1>". $nom ."</h1>
+        echo "
         <tr>
         <td>". $place ."</td>
-        <td>". $nbVictoires ."</td>
-        <td>". $nbDefaites ."</td>
-        <td>". $nombreMatchesGagnes ."</td>
-        <td>". $nombreMatchesPerdus ."</td>
-        <td>". $nombreSetsGagnes ."</td>
-        <td>". $nombreSetsPerdus ."</td>
-        <td>". $nombreJeuxGagnes ."</td>
-        <td>". $nombreJeuxPerdus ."</td>
+        <td>". $nom ."</td>
+        <td>". $points ."</td>
+        <td>". $diffNombreMatchs ."</td>
+        <td>". $diffNombreSets ."</td>
+        <td>". $diffNombreJeux ."</td>
         </tr>
-        ";*/
+        ";
+        
+       
         
         return $affichageHTML;
     }
