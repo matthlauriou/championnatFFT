@@ -52,15 +52,15 @@
             }
 
             if (isset($jsonClassementEquipes["nombreMatchesGagnes"]) == 0){
-                $this->nombreMatchesGagnes = 0;
+                $this->nombreMatchsGagnes = 0;
             } else {
-                $this->nombreMatchesGagnes = $jsonClassementEquipes["nombreMatchesGagnes"];
+                $this->nombreMatchsGagnes = $jsonClassementEquipes["nombreMatchesGagnes"];
             }
 
             if (isset($jsonClassementEquipes["nombreMatchesPerdus"]) == 0){
-                $this->nombreMatchesPerdus = 0;
+                $this->nombreMatchsPerdus = 0;
             } else {
-                $this->nombreMatchesPerdus = $jsonClassementEquipes["nombreMatchesPerdus"];
+                $this->nombreMatchsPerdus = $jsonClassementEquipes["nombreMatchesPerdus"];
             }
 
             if (isset($jsonClassementEquipes["nombreSetsGagnes"]) == 0){
@@ -87,7 +87,7 @@
                 $this->nombreJeuxPerdus = $jsonClassementEquipes["nombreJeuxPerdus"];
             }
             
-            $this->diffNombreMatchs = $this->nombreMatchesGagnes - $this->nombreMatchesPerdus;
+            $this->diffNombreMatchs = $this->nombreMatchsGagnes - $this->nombreMatchsPerdus;
             $this->diffNombreSets = $this->nombreSetsGagnes - $this->nombreSetsPerdus;
             $this->diffNombreJeux = $this->nombreJeuxGagnes - $this->nombreJeuxPerdus;
 		}

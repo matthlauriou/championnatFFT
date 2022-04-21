@@ -13,8 +13,5 @@
                 array_push($this->equipes, $equipe);
             }
 		}
-        function allEquipe(){
-            return $this->equipes;
-        }
 	}
 ?>

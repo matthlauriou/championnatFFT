@@ -128,39 +128,51 @@
 
         
         
-        $affichageHTML =  "<h1>Le classement</h1><br><figure class='wp-block-table is-style-stripes'><table>
-        <tbody>
-        <tr>
-        <th>Classement</th>
-        <th>Equipes</th>
-        <th>Points</th>
-        <th>Diff.Matchs</th>
-        <th>Diff.Sets</th>
-        <th>Diff.Jeux</th>
-        </tr>
-        </tbody></table></figure>";
+        $affichageHTML =  "<h1>Le classement</h1><br/>
         
-        $classement = new Classement($jsonEquipes);
-        $equipes = $classement->allEquipe();            
-        foreach($equipes as $equipe){
+        <figure class='wp-block-table is-style-stripes'>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Classement</th>
+                        <th>Equipes</th>
+                        <th>Points</th>
+                        <th>Diff.Matchs</th>
+                        <th>Diff.Sets</th>
+                        <th>Diff.Jeux</th>
+                    </tr>";
+        
+        // On boucle sur l'ensemble du classement afin d'ajouter chaque équipe dans le tableau HTML de classement à afficher à l'écran
+        foreach($classement->equipes as $equipe){
             $nom = $equipe->nom;
             $place = $equipe->place;
             $points = $equipe->points;
             $diffNombreMatchs = $equipe->diffNombreMatchs;
+            $nombreMatchsGagnes = $equipe->nombreMatchsGagnes;
+            $nombreMatchsPerdus = $equipe->nombreMatchsPerdus;
             $diffNombreSets = $equipe->diffNombreSets;
+            $nombreSetsGagnes = $equipe->nombreSetsGagnes;
+            $nombreSetsPerdus = $equipe->nombreSetsPerdus;
             $diffNombreJeux = $equipe->diffNombreJeux;
+            $nombreJeuxGagnes = $equipe->nombreJeuxGagnes;
+            $nombreJeuxPerdus = $equipe->nombreJeuxPerdus;
         
-        echo"<tr>
-        <td>$place </td>
-        <td>$nom </td>
-        <td>$points </td>
-        <td>$diffNombreMatchs </td>
-        <td>$diffNombreSets </td>
-        <td>$diffNombreJeux </td>
-        </tr>";
+            $affichageHTML = $affichageHTML
+                ."<tr>
+                    <td>$place</td>
+                    <td>$nom</td>
+                    <td>$points</td>
+                    <td>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
+                    <td>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
+                    <td>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
+                </tr>";
         }
 
-        
+        $affichageHTML = $affichageHTML."
+                    </tbody>
+                </table>
+            </figure>";
+
         /*<h1>Les Résultats</h1><br><figure class='wp-block-table is-style-stripes'><table>
         <tbody>
         <tr>
