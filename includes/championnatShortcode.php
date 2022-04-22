@@ -124,7 +124,7 @@
         
         <figure class='wp-block-table is-style-stripes'>
             <table>
-                <tbody>
+                <thead>
                     <tr>
                         <th>Classement</th>
                         <th>Equipes</th>
@@ -132,7 +132,8 @@
                         <th>Diff.Matchs</th>
                         <th>Diff.Sets</th>
                         <th>Diff.Jeux</th>
-                    </tr>";
+                    </tr>
+                </thead>";
         
         // On boucle sur l'ensemble du classement afin d'ajouter chaque équipe dans le tableau HTML de classement à afficher à l'écran
         foreach($classement->equipes as $equipe){
@@ -148,26 +149,28 @@
             $diffNombreJeux = $equipe->diffNombreJeux;
             $nombreJeuxGagnes = $equipe->nombreJeuxGagnes;
             $nombreJeuxPerdus = $equipe->nombreJeuxPerdus;
-        
+
+            //On rempli chaque ligne du tableau avec les données récupérées
             $affichageHTML = $affichageHTML
-                ."<tr>
-                    <td>$place</td>
-                    <td>$nom</td>
-                    <td>$points</td>
-                    <td>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
-                    <td>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
-                    <td>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
-                </tr>";
+                ."<tbody>
+                    <tr>
+                        <td>$place</td>
+                        <td>$nom</td>
+                        <td>$points</td>
+                        <td>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
+                        <td>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
+                        <td>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
+                    </tr>";
         }
         //On ferme le tableau de classement
         $affichageHTML = $affichageHTML."
-                    </tbody>
-                </table>
-            </figure>";
+                </tbody>
+            </table>
+        </figure>";
 
-        //On crée un nouvelle affichage a la suite du premier tableau 
+        //On crée un nouvelle affichage à la suite du tableau de classement
         $affichageHTML = $affichageHTML. "<h1>Les Résultats</h1><br/>";
-        // On boucle sur l'ensemble des matchs afin d'afficher chaque match dans un tableau HTML
+        // On boucle sur l'ensemble des matchs afin d'afficher chaque match et ses résultats dans un tableau HTML
         foreach($matchs->matchs as $match){
             $date = $match->date;
             $visiteeNom = $match->visitee->nom;
@@ -176,20 +179,22 @@
             $visiteuseScore = $match->visiteuse->score;
             $lienFeuilleMatch = $match->lienFeuilleMatch;
 
-            //On crée un tableau de resultat pour chaque match avec son propre lien vers la feuille de match
+            //On crée un tableau de résultat pour chaque match avec son propre lien vers la feuille de match
             $affichageHTML = $affichageHTML."
 
             <figure class='wp-block-table is-style-stripes'>
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Date du match</th> <th></th> <th>$date</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <th>Date du match $date</th>
+                            <td>$visiteeNom</td> <td>/</td> <td> $visiteuseNom</td>
                         </tr>
                         <tr>
-                            <td>$visiteeNom / $visiteuseNom</td>
-                        </tr>
-                        <tr>
-                            <td>$visiteeScore / $visiteuseScore</td>
+                            <td>$visiteeScore</td> <td>/</td> <td> $visiteuseScore</td>
                         </tr>";
 
             // Ajout du lien de la feuille de match seulement s'il y a eu un score de définit
@@ -199,7 +204,7 @@
                         <td><a href=\"$lienFeuilleMatch\" target=\"_blank\">Accès à la feuille de match</a></td>
                     </tr>";
             }
-                        
+            //fermeture du tableau de résultats d'un match            
             $affichageHTML = $affichageHTML."</tbody>
                     </table>
                 </figure>";

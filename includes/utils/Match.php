@@ -10,6 +10,7 @@
         public string $lienFeuilleMatch;
         
 		function __construct($patternUrlFeuilleMatch, $jsonMatch) {
+            //On récupère les données de chaque match dans le JSON
             if (isset($jsonMatch["date"]) == 0) {
                 $this->date = 'JJ/MM/AAAA';
             } else {
@@ -33,7 +34,7 @@
             } else {
                 $this->visiteuse = new Club($jsonMatch["team_visitor"]);
             }
-
+            //On récupère le lien de la feuille de match apres avoir reifié que l'equipe visiteuse ou visitée est un score c'est-à-dire un match terminé
             if (isset($jsonMatch["feuille_match_url"]) == 0 
                 || strcmp($this->visitee->score, '-') == 0
                 || strcmp($this->visiteuse->score, '-') == 0) {
