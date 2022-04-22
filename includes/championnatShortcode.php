@@ -191,11 +191,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>$visiteeNom</td> <td>/</td> <td> $visiteuseNom</td>
+                            <td>$visiteeNom<br/>$visiteeScore</td> <td>/</td> <td> $visiteuseNom<br/>$visiteuseScore</td>
                         </tr>
-                        <tr>
-                            <td>$visiteeScore</td> <td>/</td> <td> $visiteuseScore</td>
-                        </tr>";
+                       ";
 
             // Ajout du lien de la feuille de match seulement s'il y a eu un score de définit
             if(strcmp($lienFeuilleMatch, '-') != 0) {
