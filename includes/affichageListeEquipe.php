@@ -68,7 +68,7 @@
 	        $numero_equipe        = $equipe->numero_equipe;
 	        
 	        echo "<tr>
-	                <td>[championnatFFT id=\"$id\"]</td>
+	                <td>[championnatFFT id='$id']</td>
 	                <td>$annee</td>
 	                <td>$libelle</td>
 	                <td> Numero championnat : $numero_championnat<br/> 

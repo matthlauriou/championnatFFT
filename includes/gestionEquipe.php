@@ -110,7 +110,7 @@
 				<table>
 					<tr>
 						<td>Libelle</td>
-						<td><input type='text' name='txt_libelle'pattern='[a-zA-Z0-9]+' required='required' value='$libelle'></td>
+						<td><input type='text' name='txt_libelle'pattern='[a-zA-Z0-9- \.\-]?+' required='required' value='$libelle'></td>
 					</tr>
 					<tr>
 						<td>Année</td>
