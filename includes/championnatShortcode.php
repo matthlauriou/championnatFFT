@@ -166,7 +166,7 @@
             </figure>";
 
         //On crée un nouvelle affichage a la suite du premier tableau 
-        $affichageHTML = $affichageHTML. "<h1>Les Résultats</h1><br>";
+        $affichageHTML = $affichageHTML. "<h1>Les Résultats</h1><br/>";
         // On boucle sur l'ensemble des matchs afin d'afficher chaque match dans un tableau HTML
         foreach($matchs->matchs as $match){
             $date = $match->date;
@@ -183,20 +183,26 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Date du Match $date</th>
+                            <th>Date du match $date</th>
                         </tr>
                         <tr>
-                            <td>$visiteeNom VS $visiteuseNom</td>
+                            <td>$visiteeNom / $visiteuseNom</td>
                         </tr>
                         <tr>
-                            <td>$visiteeScore VS $visiteuseScore</td>
-                        </tr>
-                        <tr>
-                            <td><a href = '. $lienFeuilleMatch .' >$lienFeuilleMatch</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </figure>";
+                            <td>$visiteeScore / $visiteuseScore</td>
+                        </tr>";
+
+            // Ajout du lien de la feuille de match seulement s'il y a eu un score de définit
+            if(strcmp($lienFeuilleMatch, '-') != 0) {
+                $affichageHTML = $affichageHTML
+                    ."<tr>
+                        <td><a href=\"$lienFeuilleMatch\" target=\"_blank\">Accès à la feuille de match</a></td>
+                    </tr>";
+            }
+                        
+            $affichageHTML = $affichageHTML."</tbody>
+                    </table>
+                </figure>";
         }
 
        

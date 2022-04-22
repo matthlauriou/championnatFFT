@@ -34,7 +34,9 @@
                 $this->visiteuse = new Club($jsonMatch["team_visitor"]);
             }
 
-            if (isset($jsonMatch["feuille_match_url"]) == 0) {
+            if (isset($jsonMatch["feuille_match_url"]) == 0 
+                || strcmp($this->visitee->score, '-') == 0
+                || strcmp($this->visiteuse->score, '-') == 0) {
                 $this->lienFeuilleMatch = '-';
             } else {
                 $this->lienFeuilleMatch = $patternUrlFeuilleMatch.$jsonMatch["feuille_match_url"];
