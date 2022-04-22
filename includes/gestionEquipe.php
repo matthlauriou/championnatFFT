@@ -141,6 +141,7 @@
 						<td><input type='submit' id='but_submit'name='but_submit' value='Enregister'></td>
 					</tr>	
 				</table>
-			</form>"; 
+			</form>
+			<button><a href ='?page=championnats'>Retour</a></button>"; 
 	}
 ?>

@@ -186,14 +186,17 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Date du match</th> <th></th> <th>$date</th>
+                            <th>Date du match</th>
+                            <th></th>
+                            <th>$date</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>$visiteeNom<br/>$visiteeScore</td> <td>/</td> <td> $visiteuseNom<br/>$visiteuseScore</td>
-                        </tr>
-                       ";
+                            <td>$visiteeNom<br/>$visiteeScore</td>
+                            <td>/</td>
+                            <td> $visiteuseNom<br/>$visiteuseScore</td>
+                        </tr>";
 
             // Ajout du lien de la feuille de match seulement s'il y a eu un score de définit
             if(strcmp($lienFeuilleMatch, '-') != 0) {
