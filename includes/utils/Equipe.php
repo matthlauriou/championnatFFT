@@ -17,7 +17,7 @@
         public int $nombreJeuxPerdus;
 
 		function __construct($jsonEquipe) {
-
+            //Recupèrations des données concernant l'équipe
             if (isset($jsonEquipe["name"]) == 0){
                 $this->nom = '-';
             } else {
@@ -87,15 +87,10 @@
                 $this->nombreJeuxPerdus = $jsonClassementEquipes["nombreJeuxPerdus"];
             }
             
+            //Calcul des diff pour l'affichage dans le tableau de classement
             $this->diffNombreMatchs = $this->nombreMatchsGagnes - $this->nombreMatchsPerdus;
             $this->diffNombreSets = $this->nombreSetsGagnes - $this->nombreSetsPerdus;
             $this->diffNombreJeux = $this->nombreJeuxGagnes - $this->nombreJeuxPerdus;
 		}
-        function equipe(){
-            return $this->equipe;
-            print_r($equipe);
-        }
-        
-        
 	}
 ?>

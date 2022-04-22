@@ -84,23 +84,18 @@
         );
 
         $context = stream_context_create($options);
-        if($context === 0){ 
-            echo "Une erreur est survenue lors de la lecture des données";
-            die;
+        if($context == 0){ 
+            $affichageHTML =  "<p>Une erreur est survenue lors de la création du contexte avec les paramètres fournis</p>";
+                return $affichageHTML;
         } else{
             // 4 - Récupérer le JSON depuis le CURL
             $result = file_get_contents($urlDonneesChampionnat, false, $context);
 
-            if($result === FALSE){ 
-                echo "Une erreur est survenue lors de la lecture des données";
-                die;
+            if($result == false){ 
+                $affichageHTML =  "<p>Une erreur est survenue lors de la lecture des données</p>";
+                return $affichageHTML;
             }
-
         }
-
-        
-
-        // TODO gérer une erreur de retour de la réponse HTTP
 
         //parser le json pour extraire les informations de la phrase json creer et recuperer par le file_get_contents()
         $parsedJson = json_decode($result, true);
@@ -116,18 +111,15 @@
 
         // 6 - Fonction de récupération des classement 
         $classement = new Classement($jsonEquipes);
-        //print("<pre>".print_r($classement,true)."</pre>");
 
         // 7 - Générer la liste des matchs
         $matchs = new Matchs($identifiantEquipeBDD, $urlPatternFeuilleMatch, $jsonCalendrierMatchs);
-        //print("<pre>".print_r($matchs,true)."</pre>");
-       
+               
         // 8 - Trier $classement et $matchs si besoin : pour le moment N/A
 
         // 9 - Afficher le résultat des fonctions sur la page de l'équipe
 
-        
-        
+        //On crée le tableau dans lequelle on va afficher les données
         $affichageHTML =  "<h1>Le classement</h1><br/>
         
         <figure class='wp-block-table is-style-stripes'>
@@ -167,26 +159,48 @@
                     <td>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
                 </tr>";
         }
-
+        //On ferme le tableau de classement
         $affichageHTML = $affichageHTML."
                     </tbody>
                 </table>
             </figure>";
 
-        /*<h1>Les Résultats</h1><br><figure class='wp-block-table is-style-stripes'><table>
-        <tbody>
-        <tr>
-        <th>Date du Match</th>
-        </tr>
-        </tbody></table></figure>
-        <tr>
-        <td>'. $matchs .'</td>
-        </tr>
-        <a href = '. $lienFeuilleMatch .' >$lienFeuilleMatch</a>";
-        */
+        //On crée un nouvelle affichage a la suite du premier tableau 
+        $affichageHTML = $affichageHTML. "<h1>Les Résultats</h1><br>";
+        // On boucle sur l'ensemble des matchs afin d'afficher chaque match dans un tableau HTML
+        foreach($matchs->matchs as $match){
+            $date = $match->date;
+            $visiteeNom = $match->visitee->nom;
+            $visiteeScore = $match->visitee->score;
+            $visiteuseNom = $match->visiteuse->nom;
+            $visiteuseScore = $match->visiteuse->score;
+            $lienFeuilleMatch = $match->lienFeuilleMatch;
+
+            //On crée un tableau de resultat pour chaque match avec son propre lien vers la feuille de match
+            $affichageHTML = $affichageHTML."
+
+            <figure class='wp-block-table is-style-stripes'>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Date du Match $date</th>
+                        </tr>
+                        <tr>
+                            <td>$visiteeNom VS $visiteuseNom</td>
+                        </tr>
+                        <tr>
+                            <td>$visiteeScore VS $visiteuseScore</td>
+                        </tr>
+                        <tr>
+                            <td><a href = '. $lienFeuilleMatch .' >$lienFeuilleMatch</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </figure>";
+        }
 
        
-        
+        //On affiche le HTML sur la page 
         return $affichageHTML;
     }
     // ajouter shortcode
