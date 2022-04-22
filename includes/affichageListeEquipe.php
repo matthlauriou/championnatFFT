@@ -43,7 +43,7 @@
 
 <table>
     <tr>
-        <th>id</th>
+        <th>Shortcode</th>
         <th>Annee Sportive</th>
         <th>Libelle équipe</th>
         <th>Détails</th>
@@ -68,7 +68,7 @@
 	        $numero_equipe        = $equipe->numero_equipe;
 	        
 	        echo "<tr>
-	                <td>" . $id . "</td>
+	                <td>[championnat id="\" . $id . "\"]</td>
 	                <td>" . $annee . "</td>
 	                <td>" . $libelle . "</td>
 	                <td> Numero championnat : ". $numero_championnat ."<br/> 
