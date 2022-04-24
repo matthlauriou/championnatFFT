@@ -1,6 +1,6 @@
 <?php
 	global $wpdb;
-	require plugin_dir_path(__FILE__).'/bdd/Requetes.php';
+	require_once plugin_dir_path(__FILE__).'/bdd/Requetes.php';
 	
 	
 	// supprimer un enregistrement
@@ -47,6 +47,7 @@
         <th>Annee Sportive</th>
         <th>Libelle équipe</th>
         <th>Détails</th>
+		<th>Slug Page</th>
         <th>&nbsp;</th>
     </tr>
 
@@ -66,6 +67,7 @@
 	        $phase_championnat    = $equipe->phase_championnat;
 	        $poule_championnat    = $equipe->poule_championnat;
 	        $numero_equipe        = $equipe->numero_equipe;
+			$lien_page       	 = $equipe->lien_page;
 	        
 	        echo "<tr>
 	                <td>[championnatFFT id='$id']</td>
@@ -76,6 +78,7 @@
 						Phase : $phase_championnat<br/> 
 						Poule : $poule_championnat<br/> 
 						Equipe : $numero_equipe</td>
+					<td>$lien_page</td>
 	                <td><a href='?page=gestionEquipe&action=modifier&idEquipe=$id' name='sub_modifier'>Modifier</a>
 	                <br/>
 	                <a href='?page=gestionEquipe&action=supprimer&idEquipe=$id' name='sub_supprimer'>Supprimer</a>

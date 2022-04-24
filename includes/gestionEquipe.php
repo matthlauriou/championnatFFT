@@ -1,6 +1,6 @@
 <?php
-	require plugin_dir_path(__FILE__).'/constantes/constantes.php';
-	require plugin_dir_path(__FILE__).'/bdd/Requetes.php';
+	require_once plugin_dir_path(__FILE__).'/constantes/constantes.php';
+	require_once plugin_dir_path(__FILE__).'/bdd/Requetes.php';
 	global $wpdb;
 
 	$requetes = new Requetes($wpdb);
@@ -26,6 +26,7 @@
 			$phase_championnat = "";
 			$poule_championnat = "";
 			$numero_equipe = "";
+			$lien_page = "";
 		// Vérification si nous sommes dans une action de modification d'équipe
 		}elseif (strcmp($_GET["action"], $MODIFIER) == 0) {
 			// Modification d'équipe, on intialise l'ensemble des valeurs avec les valeurs de la BDD
@@ -41,6 +42,7 @@
 			$phase_championnat = $equipe->phase_championnat;
 			$poule_championnat = $equipe->poule_championnat;
 			$numero_equipe = $equipe->numero_equipe;
+			$lien_page = $equipe->lien_page;
 		// Vérification si nous sommes dans une action de suppression d'équipe	
 		} elseif (strcmp($_GET["action"], $SUPPRIMER) == 0) {
 			// Suppression d'équipe, on supprime l'ensemble des valeurs  de la BDD
@@ -73,12 +75,13 @@
 	    $phase_championnat = strip_tags($_POST['txt_phase_championnat']);
 	    $poule_championnat = strip_tags($_POST['txt_poule_championnat']);
 	    $numero_equipe = strip_tags($_POST['txt_numero_equipe']);
+		$lien_page = strip_tags($_POST['txt_lien_page']);
 			
 		//si $_get['action']==$CREER insérer donnée en base préparer les paramêtre pour se protéger contre injection sql 
 		if (strcmp($_GET["action"], $CREER) == 0) {
 			// Action de création on insert donc les données en base en préparant les paramètres pour eviter les injections sql
 			$inserted = $requetes->insertEquipe($libelle, $annee, $numero_championnat, $division_championnat, 
-				$phase_championnat, $poule_championnat, $numero_equipe);
+				$phase_championnat, $poule_championnat, $numero_equipe, $lien_page);
 
 			// Vérification que la requête se soit bien éxécutée
 			if ($inserted === false) {
@@ -89,7 +92,7 @@
 		} elseif (strcmp($_GET["action"], $MODIFIER) == 0) {
 			// Action de mise à jours de l'équipe en préparant les paramètres pour eviter injection sql
 			$updated = $requetes->updateEquipe($idEquipe, $libelle, $annee, $numero_championnat, $division_championnat, 
-				$phase_championnat, $poule_championnat, $numero_equipe);
+				$phase_championnat, $poule_championnat, $numero_equipe, $lien_page);
 
 			if ($updated === false) {
 				$message = "Modification d'équipe impossible";
@@ -135,6 +138,10 @@
 					<tr>
 						<td>Equipe</td>
 						<td><input type='text' name='txt_numero_equipe' pattern='[-+]?[0-9]+(\.[0-9]+)?' required='required' value ='$numero_equipe'></td>
+					</tr>
+					<tr>
+						<td>Lien page</td>
+						<td><input type='text' name='txt_lien_page' required='required' value ='$lien_page'></td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>

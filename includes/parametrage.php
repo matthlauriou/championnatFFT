@@ -1,13 +1,14 @@
 <?php
 
     // Définition des variables globales
-    require plugin_dir_path(__FILE__).'/constantes/constantes.php';
-	require plugin_dir_path(__FILE__).'/bdd/Requetes.php';
+    require_once plugin_dir_path(__FILE__).'/constantes/constantes.php';
+	require_once plugin_dir_path(__FILE__).'/bdd/Requetes.php';
     global $wpdb;
     
 
     $url_post = "Aucune valeur";
     $url_feuille_match = "Aucune valeur";
+    $annee_sportive = "Aucune valeur";
 
     $zoneInformation = false;
     $message = "";
@@ -26,6 +27,8 @@
             $url_post = $valeur;
         } elseif (strcmp($cle, $URL_FEUILLE_MATCH) == 0) {
             $url_feuille_match = $valeur;
+        } elseif (strcmp($cle, $ANNEE_SPORTIVE) == 0) {
+            $annee_sportive = $valeur;
         } else {
             // Log précisant la clé inconnue
             $zoneInformation = true;
@@ -39,6 +42,7 @@
         // On récupere les données en les protégeant contre la faille XSS
         $txt_url_post = strip_tags($_POST['txt_url_post']);
         $txt_url_feuille_match = strip_tags($_POST['txt_url_feuille_match']);
+        $txt_annee_sportive = strip_tags($_POST['txt_annee_sportive']);
 
         // Mise à jours des valeurs l'une après l'autre vis à vis de sa clé primaire
         if (!$requetes->updateTableParametrage($URL_POST, $txt_url_post)) {
@@ -48,6 +52,10 @@
         if (!$requetes->updateTableParametrage($URL_FEUILLE_MATCH, $txt_url_feuille_match)) {
             $zoneInformation = true;
             $message = $message ."La mise à jours de la clé ".$URL_FEUILLE_MATCH." avec la valeur ".$txt_url_feuille_match." est impossible. ";
+        }
+        if (!$requetes->updateTableParametrage($ANNEE_SPORTIVE, $txt_annee_sportive)) {
+            $zoneInformation = true;
+            $message = $message ."La mise à jours de la clé ".$ANNEE_SPORTIVE." avec la valeur ".$txt_annee_sportive." est impossible. ";
         }
 
         if (!$zoneInformation) {
@@ -79,6 +87,10 @@
                     <tr>
                         <td>Pattern lien accès feuille de match :</td>
                         <td><input type='text' name='txt_url_feuille_match' pattern='https://.*' required='required' value='$url_feuille_match'></td>
+                    </tr>
+                    <tr>
+                        <td>Année sportive :</td>
+                        <td><input type='text' name='txt_annee_sportive' pattern='[0-9]{4}' required='required' value='$annee_sportive'></td>
                     </tr>
                     <tr>
         				<td>&nbsp;</td>

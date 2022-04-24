@@ -1,5 +1,5 @@
 <?php
-	require 'Base.php';
+	require_once 'Base.php';
 
 	class Init extends Base {
 
@@ -8,7 +8,7 @@
 			parent::__construct($wpdb);
 		}
 
-		// Création de la table Equipe en base de données à l'activation du pluggin
+		// Création de la table Equipe en base de données à l'activation du plugin
 		function creerTableEquipe() {
 			$charset_collate = $this->wpdb->get_charset_collate();
 
@@ -21,13 +21,14 @@
 				phase_championnat mediumint(11) NOT NULL,
 				poule_championnat mediumint(11) NOT NULL,
 				numero_equipe mediumint(11) NOT NULL,
+				lien_page varchar(100) NOT NULL,
 				PRIMARY KEY  (id)
 			) $charset_collate;";
 
 			return $sql_equipe;
 		}
 
-		// Création de la table Parametrage en base de données à l'activation du pluggin
+		// Création de la table Parametrage en base de données à l'activation du plugin
 		function creerTableParametrage() {
 			$charset_collate = $this->wpdb->get_charset_collate();
 
@@ -42,10 +43,27 @@
 
 		// Création des clés des URL
 		function insertParametrage($cle) {
-				$this->wpdb->insert($this->TABLE_PARAMETRAGE, array(
+			$this->wpdb->insert($this->TABLE_PARAMETRAGE, array(
 				'cle' => $cle,
 				'valeur' => 'A DEFINIR'
 			));
+		}
+
+		// Création de la table historique en base de données à l'activation du plugin
+		function creerTableHistorique() {
+			$charset_collate = $this->wpdb->get_charset_collate();
+
+			$sql_historique = "CREATE TABLE $this->TABLE_HISTORIQUE (
+				id mediumint(11) NOT NULL AUTO_INCREMENT,
+				libelle_equipe varchar(100) NOT NULL,
+				date_rencontre varchar(100) NOT NULL,
+				resultat varchar(100) NOT NULL,
+				score varchar(20) NOT NULL,
+				lien_page varchar(250) NOT NULL,
+				PRIMARY KEY  (id)
+			) $charset_collate;";
+
+			return $sql_historique;
 		}
 	}
 ?>

@@ -1,5 +1,5 @@
 <?php
-	require 'Base.php';
+	require_once 'Base.php';
 
 	class Uninstall extends Base {
 
@@ -16,6 +16,12 @@
 		// Suppression de la table PARAMETRAGE
 		function dropParametrage() {
 			$sql = "DROP TABLE IF EXISTS $this->TABLE_PARAMETRAGE";
+			$this->wpdb->query($sql);
+		}
+
+		// Suppression de la table HISTORIQUE
+		function dropHistorique() {
+			$sql = "DROP TABLE IF EXISTS $this->TABLE_HISTORIQUE";
 			$this->wpdb->query($sql);
 		}
 	}
