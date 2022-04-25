@@ -74,8 +74,8 @@
 			$sql = "DELETE FROM $this->TABLE_HISTORIQUE";
 			$this->wpdb->query($sql);
 			// Reinitilisation de l'auto-increment de la Primary Key à 1
-			//$sql = "ALTER TABLE $this->TABLE_HISTORIQUE AUTO_INCREMENT = 1";
-			//$this->wpdb->query($sql);
+			$sql = "ALTER TABLE $this->TABLE_HISTORIQUE AUTO_INCREMENT = 1";
+			$this->wpdb->query($sql);
 		}
 
 		// Fonction permettant d'ajouter une nouvelle entrée dans la table historique
