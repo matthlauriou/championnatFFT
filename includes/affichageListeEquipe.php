@@ -28,27 +28,25 @@
 		$message = "L'action non valorisée";
 	}
 
-?>
-<h1>Liste des équipes</h1>
+	echo "<h1>Liste des équipes</h1>
 
-<div class="wrap">
-    <button  type="button" class="btn btn-light btn-lg" id="listeEquipe" name="listeEquipe"><a href="?page=listequipe">Liste des équipes</a></button>
-    <button  type="button" class="btn btn-light btn-lg" id="parametrage" name="parametrage"><a href="?page=parametrage">Paramétrage</a></button>
-    <button  type="button" class="btn btn-light btn-lg" id="creationEquipe" name="creationEquipe"><a href="?page=gestionEquipe&action=creer">+</a></button>
-</div>
+		<div class=\"wrap\">
+			<button  type=\"button\" class=\"btn btn-light btn-lg\" id=\"listeEquipe\" name=\"listeEquipe\"><a href=\"?page=listequipe\">Liste des équipes</a></button>
+			<button  type=\"button\" class=\"btn btn-light btn-lg\" id=\"parametrage\" name=\"parametrage\"><a href=\"?page=parametrage\">Paramétrage</a></button>
+			<button  type=\"button\" class=\"btn btn-light btn-lg\" id=\"creationEquipe\" name=\"creationEquipe\"><a href=\"?page=gestionEquipe&action=creer\">+</a></button>
+		</div>
 
-<br/>
+		<br/>
 
-<table>
-    <tr>
-        <th>Shortcode</th>
-        <th>Annee Sportive</th>
-        <th>Libelle équipe</th>
-        <th>Détails</th>
-		<th>Slug Page</th>
-        <th>&nbsp;</th>
-    </tr>
-<?php
+		<table>
+			<tr>
+				<th>Shortcode</th>
+				<th>Annee Sportive</th>
+				<th>Libelle équipe</th>
+				<th>Détails</th>
+				<th>Slug Page</th>
+				<th>&nbsp;</th>
+			</tr>";
 
 	$requetes = new Requetes($wpdb);
 	// Récupération de l'ensemble des equipes
@@ -87,5 +85,5 @@
 	    echo "<tr><td>Aucun résultats trouvés</td></tr>";
 	}
 
+	echo "</table>";
 ?>
-</table>

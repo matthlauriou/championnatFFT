@@ -1,4 +1,3 @@
-
 <?php
   // Actions possibles sur la gestion d'une équipe
   $MODIFIER = "modifier";
