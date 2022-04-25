@@ -118,13 +118,13 @@
         // 8 - Trier $classement et $matchs si besoin : pour le moment N/A
 
         // 9 - Afficher le résultat des fonctions sur la page de l'équipe
-
+        $imageVersus = "<img src='http://localhost/wordpress/wp-content/uploads/2022/04/slash.png' alt'Versus'/>";
         //On crée le tableau dans lequelle on va afficher les données
         $affichageHTML =  "
         <body>
-            <h2>Le classement</h2><br/>
+            <h2>Le Classement</h2><br/>
             
-            <figure class='wp-block-table is-style-stripes'>
+            <figure>
                 <table>
                     <thead>
                         <tr>
@@ -184,7 +184,7 @@
             //On crée un tableau de résultat pour chaque match avec son propre lien vers la feuille de match
             $affichageHTML = $affichageHTML."
 
-            <figure class='wp-block-table is-style-stripes'>
+            <figure>
                 <table>
                     <thead>
                         <tr>
@@ -196,7 +196,7 @@
                     <tbody>
                         <tr>
                             <td>$visiteeNom<br/>$visiteeScore</td>
-                            <td>/</td>
+                            <td><a href=\"$lienFeuilleMatch\" target=\"_blank\">$imageVersus</a></td>
                             <td> $visiteuseNom<br/>$visiteuseScore</td>
                         </tr>";
 
@@ -204,7 +204,7 @@
             if(strcmp($lienFeuilleMatch, '-') != 0) {
                 $affichageHTML = $affichageHTML
                     ."<tr>
-                        <td><a href=\"$lienFeuilleMatch\" target=\"_blank\">Accès à la feuille de match</a></td>
+                        <td colspan = 3><a href=\"$lienFeuilleMatch\" target=\"_blank\">Accès à la feuille de match</a></td>
                     </tr>";
             }
             //fermeture du tableau de résultats d'un match            

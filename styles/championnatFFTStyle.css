@@ -1,3 +1,27 @@
-h2{
-    color: red;
+table{
+    align-content: center;
+    max-height: max-content;
+    max-width: max-content;
+}
+
+thead{
+    color: #e3e3e5 ;
+    background-color: #1c2230;
+    height: 50px;
+}
+
+tbody{
+    color: #1c2230;
+    background-color: #e3e3e5;
+    height: 100px;
+}
+
+th{
+    text-align: center;
+    width: 30%;
+}
+
+td{
+    text-align: center;
+    width: 30%;
 }
