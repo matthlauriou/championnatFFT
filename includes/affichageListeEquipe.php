@@ -29,7 +29,6 @@
 	}
 
 ?>
-
 <h1>Liste des équipes</h1>
 
 <div class="wrap">
@@ -40,7 +39,6 @@
 
 <br/>
 
-
 <table>
     <tr>
         <th>Shortcode</th>
@@ -50,7 +48,6 @@
 		<th>Slug Page</th>
         <th>&nbsp;</th>
     </tr>
-
 <?php
 
 	$requetes = new Requetes($wpdb);
@@ -84,8 +81,7 @@
 	                <a href='?page=gestionEquipe&action=supprimer&idEquipe=$id' name='sub_supprimer'>Supprimer</a>
 	                </td>
 	            </tr>
-	            ";
-	        
+	            ";    
 	    }
 	} else {
 	    echo "<tr><td>Aucun résultats trouvés</td></tr>";

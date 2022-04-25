@@ -31,10 +31,11 @@
         //règles à appliquer de manières générale
       }
 
+      
       // lecture des scripts mis en file d'attente
       function register()
       {
-        add_action('admin_enqueue_scripts', array(
+        add_action('wp_enqueue_scripts', array(
             $this,
             'enqueue'
         ));
@@ -44,9 +45,8 @@
       function enqueue()
       {
         //mise en attente des scripts exemple css js etc pour la lecture
-        wp_enqueue_style('championnatFFTStyle', plugins_url('/styles/style.css', __FILE__), array(
-            ''
-        ));
+        wp_enqueue_style( 'championnatFFTStyle', get_stylesheet_uri() . '/styles/championnatFFTStyle.css',array(), time(), false);
+
       }
 
       // Fonction d'installation du plugin Championnats
@@ -95,6 +95,7 @@
         wp_unschedule_event( $timestamp, 'chmptFFT_cron_hook' );
       }
   }
+
 
   // Verifier que la classe existe 
   if (class_exists('ChampionnatsPlugin')) {

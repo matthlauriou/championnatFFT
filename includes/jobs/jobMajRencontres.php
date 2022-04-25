@@ -81,7 +81,7 @@
             $rencontres = ajouterRencontre($rencontres, $equipeSaisonEnCours->libelle, $equipeSaisonEnCours->lien_page, $matchsEquipeSaisonEnCours);
         }
      
-        // 6 - Trier par date de match piur récupérer le plus récent
+        // 6 - Trier par date de match pour récupérer le plus récent
         usort($rencontres, function($a, $b) {
             return ($a->dateTime < $b->dateTime) ? 1 : -1;
         });
@@ -122,7 +122,7 @@
     function ajouterRencontre($rencontres, $libelleEquipe, $lienPage, $matchsEquipeSaisonEnCours) {
         // On boucle sur l'ensemble des matchs pour l'ajouter à toutes les rencontres
         foreach($matchsEquipeSaisonEnCours->matchs as $match) {
-            //print("<pre>".print_r($match,true)."</pre>");
+            
             if(strcmp($match->visitee->score, '-') == 0
                 || strcmp($match->visiteuse->score, '-') == 0
                 || ($match->visitee->score + $match->visiteuse->score == 0)) {

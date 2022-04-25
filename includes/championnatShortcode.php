@@ -120,21 +120,23 @@
         // 9 - Afficher le résultat des fonctions sur la page de l'équipe
 
         //On crée le tableau dans lequelle on va afficher les données
-        $affichageHTML =  "<h1>Le classement</h1><br/>
-        
-        <figure class='wp-block-table is-style-stripes'>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Classement</th>
-                        <th>Equipes</th>
-                        <th>Points</th>
-                        <th>Diff.Matchs</th>
-                        <th>Diff.Sets</th>
-                        <th>Diff.Jeux</th>
-                    </tr>
-                </thead>";
-        
+        $affichageHTML =  "
+        <body>
+            <h2>Le classement</h2><br/>
+            
+            <figure class='wp-block-table is-style-stripes'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Classement</th>
+                            <th>Equipes</th>
+                            <th>Points</th>
+                            <th>Diff.Matchs</th>
+                            <th>Diff.Sets</th>
+                            <th>Diff.Jeux</th>
+                        </tr>
+                    </thead>";
+            
         // On boucle sur l'ensemble du classement afin d'ajouter chaque équipe dans le tableau HTML de classement à afficher à l'écran
         foreach($classement->equipes as $equipe){
             $nom = $equipe->nom;
@@ -152,24 +154,24 @@
 
             //On rempli chaque ligne du tableau avec les données récupérées
             $affichageHTML = $affichageHTML
-                ."<tbody>
-                    <tr>
-                        <td>$place</td>
-                        <td>$nom</td>
-                        <td>$points</td>
-                        <td>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
-                        <td>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
-                        <td>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
-                    </tr>";
+                    ."<tbody>
+                        <tr>
+                            <td>$place</td>
+                            <td>$nom</td>
+                            <td>$points</td>
+                            <td>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
+                            <td>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
+                            <td>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
+                        </tr>";
         }
         //On ferme le tableau de classement
         $affichageHTML = $affichageHTML."
-                </tbody>
-            </table>
-        </figure>";
+                    </tbody>
+                </table>
+            </figure>";
 
         //On crée un nouvelle affichage à la suite du tableau de classement
-        $affichageHTML = $affichageHTML. "<h1>Les Résultats</h1><br/>";
+        $affichageHTML = $affichageHTML. "<h2>Les Résultats</h2><br/>";
         // On boucle sur l'ensemble des matchs afin d'afficher chaque match et ses résultats dans un tableau HTML
         foreach($matchs->matchs as $match){
             $date = $match->date;
@@ -208,7 +210,8 @@
             //fermeture du tableau de résultats d'un match            
             $affichageHTML = $affichageHTML."</tbody>
                     </table>
-                </figure>";
+                </figure>
+            </body>";
         }
 
        
