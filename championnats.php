@@ -37,17 +37,24 @@
       {
         add_action('wp_enqueue_scripts', array(
             $this,
-            'enqueue'
+            'enqueueStyle'
         ));
+      
       }
       
       // fonction pour la mise en attente des scripts
-      function enqueue()
+      function enqueueStyle()
       {
         //mise en attente des scripts exemple css js etc pour la lecture
-        wp_enqueue_style( 'championnatFFTStyle', get_stylesheet_uri() . '/styles/championnatFFTStyle.css',array(), time(), false);
-
+        wp_enqueue_style( 'championnatFFTStyle', plugin_dir_url(__FILE__) . '/styles/championnatFFTStyle.css',array(), time(), false);
       }
+
+      function dequeueStyle()
+      {
+        //mise en attente des scripts exemple css js etc pour la lecture
+        wp_dequeue_style( 'championnatFFTStyle');
+      }
+      
 
       // Fonction d'installation du plugin Championnats
       function activationPlugin()
@@ -93,6 +100,11 @@
         // Désactivation des tâches CRON
         $timestamp = wp_next_scheduled( 'chmptFFT_cron_hook' );
         wp_unschedule_event( $timestamp, 'chmptFFT_cron_hook' );
+
+        add_action('wp_enqueue_scripts',  array(
+          $this,
+          'dequeueStyle')
+          , 100);
       }
   }
 
