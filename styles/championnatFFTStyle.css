@@ -1,27 +1,30 @@
-.tableaux{
-    color: #e3e3e5 ;
-}
-
-.corpsTableaux{
-}
-
-.textCenter{
+.chmpFFT_txtCenterHead_w20{
     text-align: center;
-    width: 30%;
+    background-color: #1c2230;
+    width: 20%;
 }
-
-#resultatChmp table td th {
+.chmpFFT_txtCenterBody_w20{
     text-align: center;
-}
-
-.chmpFFT_w40 {
-    width: 40%;
-}
-
-.w20 {
+    background-color: #e3e3e5;
     width: 20%;
 }
 
-.txtCenter {
+.chmpFFT_txtCenterHead{
     text-align: center;
+    color: #e3e3e5 ;
+    background-color: #1c2230;
+    width: 40%;
+}
+.chmpFFT_txtCenterBody{
+    text-align: center;
+    color:#1c2230;
+    background-color: #e3e3e5;
+    width: 40%;
+}
+
+.classement_chmpFFT{
+    border-radius: 20px;
+}
+.resultats_chmpFFT{
+    border-radius: 10px;
 }

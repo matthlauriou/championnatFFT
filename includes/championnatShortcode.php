@@ -125,17 +125,18 @@
             <h2>Le Classement</h2><br/>
             
             <figure>
-                <table class='shortcode'>
-                    <thead class='tableaux'>
-                        <tr>
-                            <th>Classement</th>
-                            <th>Equipes</th>
-                            <th>Points</th>
-                            <th>Diff.Matchs</th>
-                            <th>Diff.Sets</th>
-                            <th>Diff.Jeux</th>
-                        </tr>
-                    </thead>";
+                <div class='classement_chmpFFT'>
+                    <table>
+                        <thead>
+                            <tr'>
+                                <th class='chmpFFT_txtCenterHead'>Classement</th>
+                                <th class='chmpFFT_txtCenterHead'>Equipes</th>
+                                <th class='chmpFFT_txtCenterHead'>Points</th>
+                                <th class='chmpFFT_txtCenterHead'>Diff.Matchs</th>
+                                <th class='chmpFFT_txtCenterHead'>Diff.Sets</th>
+                                <th class='chmpFFT_txtCenterHead'>Diff.Jeux</th>
+                            </tr>
+                        </thead>";
             
         // On boucle sur l'ensemble du classement afin d'ajouter chaque équipe dans le tableau HTML de classement à afficher à l'écran
         foreach($classement->equipes as $equipe){
@@ -154,20 +155,21 @@
 
             //On rempli chaque ligne du tableau avec les données récupérées
             $affichageHTML = $affichageHTML
-                    ."<tbody class='corpsTableaux'>
-                        <tr>
-                            <td>$place</td>
-                            <td>$nom</td>
-                            <td>$points</td>
-                            <td>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
-                            <td>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
-                            <td>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
-                        </tr>";
+                        ."<tbody>
+                            <tr>
+                                <td class='chmpFFT_txtCenterBody'>$place</td>
+                                <td class='chmpFFT_txtCenterBody'>$nom</td>
+                                <td class='chmpFFT_txtCenterBody'>$points</td>
+                                <td class='chmpFFT_txtCenterBody'>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
+                                <td class='chmpFFT_txtCenterBody'>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
+                                <td class='chmpFFT_txtCenterBody'>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
+                            </tr>";
         }
         //On ferme le tableau de classement
         $affichageHTML = $affichageHTML."
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </figure>";
 
         //On crée un nouvelle affichage à la suite du tableau de classement
@@ -185,31 +187,38 @@
             $affichageHTML = $affichageHTML."
 
             <figure>
-                <table class='shortcode'>
-                    <thead class='tableaux'>
-                        <tr>
-                            <th>Date du match</th>
-                            <th></th>
-                            <th>$date</th>
-                        </tr>
-                    </thead>
-                    <tbody class='corpsTableaux'>
-                        <tr>
-                            <td>$visiteeNom<br/>$visiteeScore</td>
-                            <td><a href=\"$lienFeuilleMatch\" target=\"_blank\">$imageVersus</a></td>
-                            <td> $visiteuseNom<br/>$visiteuseScore</td>
-                        </tr>";
+                <div class='resultats_chmpFFT'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class='chmpFFT_txtCenterHead'>Date du match</th>
+                                <th class='chmpFFT_txtCenterHead_w20'></th>
+                                <th class='chmpFFT_txtCenterHead'>$date</th>
+                            </tr>
+                        </thead>
+                        <tbody class='corpsTableaux'>
+                            <tr>
+                                <td class='chmpFFT_txtCenterBody'>$visiteeNom<br/>$visiteeScore</td>
+                                <td class='chmpFFT_txtCenterBody_w20'><a ";
+                                if(strcmp($lienFeuilleMatch, '-') != 0) {
+                                    $affichageHTML = $affichageHTML
+                                    ."href=\"$lienFeuilleMatch\" target=\"_blank\"
+                                    ";}
+                                $affichageHTML = $affichageHTML." >$imageVersus</a></td>
+                                <td class='chmpFFT_txtCenterBody'> $visiteuseNom<br/>$visiteuseScore</td>
+                            </tr>";
 
             // Ajout du lien de la feuille de match seulement s'il y a eu un score de définit
             if(strcmp($lienFeuilleMatch, '-') != 0) {
                 $affichageHTML = $affichageHTML
-                    ."<tr>
-                        <td colspan = 3><a href=\"$lienFeuilleMatch\" target=\"_blank\">Accès à la feuille de match</a></td>
-                    </tr>";
+                            ."<tr>
+                                <td colspan = 3 class='chmpFFT_txtCenterBody'><a href=\"$lienFeuilleMatch\" target=\"_blank\">Accès à la feuille de match</a></td>
+                            </tr>";
             }
             //fermeture du tableau de résultats d'un match            
             $affichageHTML = $affichageHTML."</tbody>
-                    </table>
+                        </table>
+                    </div>
                 </figure>
             </body>";
         }
