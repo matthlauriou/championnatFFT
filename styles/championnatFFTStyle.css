@@ -28,3 +28,11 @@
 .resultats_chmpFFT{
     border-radius: 10px;
 }
+
+.resultats_chmpFFT_txtCenterHead{
+    text-align: center;
+    color: #e3e3e5 ;
+    background-color: #1c2230;
+    width: 50%;
+    margin-bottom: 0px;
+}

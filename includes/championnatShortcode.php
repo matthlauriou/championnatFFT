@@ -188,23 +188,30 @@
 
             <figure>
                 <div class='resultats_chmpFFT'>
-                    <table>
+                    <table class='resultats_chmpFFT_table'>
                         <thead>
                             <tr>
-                                <th class='chmpFFT_txtCenterHead'>Date du match</th>
-                                <th class='chmpFFT_txtCenterHead_w20'></th>
-                                <th class='chmpFFT_txtCenterHead'>$date</th>
+                                <th class='resultats_chmpFFT_txtCenterHead'>Date du match</th>
+                                <th class='resultats_chmpFFT_txtCenterHead'>$date</th>
                             </tr>
                         </thead>
-                        <tbody class='corpsTableaux'>
+                    </table>
+                    <table>
+                        <tbody>
                             <tr>
                                 <td class='chmpFFT_txtCenterBody'>$visiteeNom<br/>$visiteeScore</td>
                                 <td class='chmpFFT_txtCenterBody_w20'><a ";
                                 if(strcmp($lienFeuilleMatch, '-') != 0) {
                                     $affichageHTML = $affichageHTML
                                     ."href=\"$lienFeuilleMatch\" target=\"_blank\"
-                                    ";}
-                                $affichageHTML = $affichageHTML." >$imageVersus</a></td>
+                                    ";
+                                }
+                                $affichageHTML = $affichageHTML." >$imageVersus";
+                                if(strcmp($lienFeuilleMatch, '-') != 0) {
+                                    $affichageHTML = $affichageHTML
+                                    ."</a>";
+                                }
+                                    $affichageHTML = $affichageHTML."</td>
                                 <td class='chmpFFT_txtCenterBody'> $visiteuseNom<br/>$visiteuseScore</td>
                             </tr>";
 
