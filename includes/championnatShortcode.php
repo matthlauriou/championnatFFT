@@ -125,12 +125,12 @@
             <h2>Le Classement</h2><br/>
             
             <figure>
-                <div class='chmpFFT_border-radius_20'>
-                    <table>
+                <div class='chmpFFT_border-radius_20 chmpFFT_overflow chmpFFT_max_width'>
+                    <table class='chmpFFT_margin_bottom'>
                         <thead>
                             <tr>
                                 <th class='chmpFFT_txtCenter chmpFFT_text-color_grisClair chmpFFT_background-color_bleuNuit'>Classement</th>
-                                <th class='chmpFFT_txtCenter chmpFFT_text-color_grisClair chmpFFT_background-color_bleuNuit'>Equipes</th>
+                                <th class='chmpFFT_txtLeft chmpFFT_text-color_grisClair chmpFFT_background-color_bleuNuit'>Equipes</th>
                                 <th class='chmpFFT_txtCenter chmpFFT_text-color_grisClair chmpFFT_background-color_bleuNuit'>Points</th>
                                 <th class='chmpFFT_txtCenter chmpFFT_text-color_grisClair chmpFFT_background-color_bleuNuit'>Diff.Matchs</th>
                                 <th class='chmpFFT_txtCenter chmpFFT_text-color_grisClair chmpFFT_background-color_bleuNuit'>Diff.Sets</th>
@@ -155,19 +155,19 @@
 
             //On rempli chaque ligne du tableau avec les données récupérées
             $affichageHTML = $affichageHTML
-                        ."<tbody>
-                            <tr>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$place</td>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtLeft'>$nom</td>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$points</td>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
-                            </tr>";
+                        ."
+                        <tr>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$place</td>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtLeft'>$nom</td>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$points</td>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$diffNombreMatchs (+$nombreMatchsGagnes/-$nombreMatchsPerdus)</td>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$diffNombreSets  (+$nombreSetsGagnes/-$nombreSetsPerdus)</td>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'>$diffNombreJeux  (+$nombreJeuxGagnes/-$nombreJeuxPerdus)</td>
+                        </tr>";
         }
         //On ferme le tableau de classement
         $affichageHTML = $affichageHTML."
-                        </tbody>
+                        
                     </table>
                 </div>
             </figure>";
@@ -194,7 +194,7 @@
             $affichageHTML = $affichageHTML."
 
             <figure>
-                <div class='chmpFFT_border-radius_15'>
+                <div class='chmpFFT_border-radius_15 chmpFFT_overflow chmpFFT_max_width'>
                     <table class='chmpFFT_margin_bottom chmpFFT_w100'>
                         <thead>
                             <tr>
@@ -204,26 +204,26 @@
                         </thead>
                     </table>
                     <table class='chmpFFT_w100'>
-                        <tbody>
-                            <tr>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter chmpFFT_w40'>$visiteeNom<br/>$visiteeScore</td>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_txtCenter chmpFFT_w20'>$versus</td>
-                                <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter chmpFFT_w40'> $visiteuseNom<br/>$visiteuseScore</td>
-                            </tr>";
+                    
+                        <tr>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter chmpFFT_w40'>$visiteeNom<br/>$visiteeScore</td>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_txtCenter chmpFFT_w20'>$versus</td>
+                            <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter chmpFFT_w40'> $visiteuseNom<br/>$visiteuseScore</td>
+                        </tr>";
 
             // Ajout du lien de la feuille de match seulement s'il y a eu un score de définit
             if(strcmp($lienFeuilleMatch, '-') != 0) {
                 $affichageHTML = $affichageHTML
-                            ."<tr>
-                                <td colspan = 3 class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'><a href=\"$lienFeuilleMatch\" target=\"_blank\">Accès à la feuille de match</a></td>
-                            </tr>";
+                        ."<tr>
+                            <td colspan = 3 class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter'><a href=\"$lienFeuilleMatch\" target=\"_blank\">Accès à la feuille de match</a></td>
+                        </tr>";
             }
             //fermeture du tableau de résultats d'un match            
-            $affichageHTML = $affichageHTML."</tbody>
-                        </table>
-                    </div>
-                </figure>
-            </body>";
+            $affichageHTML = $affichageHTML."
+                    </table>
+                </div>
+            </figure>
+        </body>";
         }
 
        

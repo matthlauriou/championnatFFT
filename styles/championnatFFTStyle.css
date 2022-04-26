@@ -35,14 +35,14 @@
     color: #1c2230;
 }
 .chmpFFT_border-radius_20 {
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 20px;
 }
 .chmpFFT_border-radius_15 {
-    border-radius: 15px 15px 15px 15px;
+    border-radius: 15px;
 }
-.chmpFFT_border-radius_15_top {
-    border-radius: 15px 15px 0px 0px;
+.chmpFFT_overflow {
+    overflow: auto;
 }
-.chmpFFT_border-radius_15_bottom {
-    border-radius: 0px 0px 15px 15px;
+.chmpFFT_max_width {
+    max-width: 100%;
 }
