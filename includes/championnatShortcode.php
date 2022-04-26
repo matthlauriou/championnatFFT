@@ -126,7 +126,7 @@
             
             <figure>
                 <table class='shortcode'>
-                    <thead>
+                    <thead class='tableaux'>
                         <tr>
                             <th>Classement</th>
                             <th>Equipes</th>
@@ -154,7 +154,7 @@
 
             //On rempli chaque ligne du tableau avec les données récupérées
             $affichageHTML = $affichageHTML
-                    ."<tbody>
+                    ."<tbody class='corpsTableaux'>
                         <tr>
                             <td>$place</td>
                             <td>$nom</td>
@@ -186,14 +186,14 @@
 
             <figure>
                 <table class='shortcode'>
-                    <thead>
+                    <thead class='tableaux'>
                         <tr>
                             <th>Date du match</th>
                             <th></th>
                             <th>$date</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class='corpsTableaux'>
                         <tr>
                             <td>$visiteeNom<br/>$visiteeScore</td>
                             <td><a href=\"$lienFeuilleMatch\" target=\"_blank\">$imageVersus</a></td>

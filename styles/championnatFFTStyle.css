@@ -1,27 +1,22 @@
 .shortcode{
     align-content: center;
     max-height: max-content;
-    max-width: max-content;
+    width: 100%;
 }
 
-thead{
+.tableaux{
     color: #e3e3e5 ;
     background-color: #1c2230;
     height: 50px;
 }
 
-tbody{
+.corpsTableaux{
     color: #1c2230;
     background-color: #e3e3e5;
     height: 100px;
 }
 
-th{
-    text-align: center;
-    width: 30%;
-}
-
-td{
+.textCenter{
     text-align: center;
     width: 30%;
 }
