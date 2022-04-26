@@ -118,14 +118,14 @@
         // 8 - Trier $classement et $matchs si besoin : pour le moment N/A
 
         // 9 - Afficher le résultat des fonctions sur la page de l'équipe
-        $imageVersus = "<img src='http://localhost/wordpress/wp-content/uploads/2022/04/slash.png' alt'Versus'/>";
+        $imageVersus = "<img src='".plugin_dir_url(dirname(__FILE__)).'img/slash.png'."' alt'Versus'/>";
         //On crée le tableau dans lequelle on va afficher les données
         $affichageHTML =  "
         <body>
             <h2>Le Classement</h2><br/>
             
             <figure>
-                <table>
+                <table class='shortcode'>
                     <thead>
                         <tr>
                             <th>Classement</th>
@@ -185,7 +185,7 @@
             $affichageHTML = $affichageHTML."
 
             <figure>
-                <table>
+                <table class='shortcode'>
                     <thead>
                         <tr>
                             <th>Date du match</th>
