@@ -1,22 +1,27 @@
-.shortcode{
-    align-content: center;
-    max-height: max-content;
-    width: 100%;
-}
-
 .tableaux{
     color: #e3e3e5 ;
-    background-color: #1c2230;
-    height: 50px;
 }
 
 .corpsTableaux{
-    color: #1c2230;
-    background-color: #e3e3e5;
-    height: 100px;
 }
 
 .textCenter{
     text-align: center;
     width: 30%;
+}
+
+#resultatChmp table td th {
+    text-align: center;
+}
+
+.chmpFFT_w40 {
+    width: 40%;
+}
+
+.w20 {
+    width: 20%;
+}
+
+.txtCenter {
+    text-align: center;
 }
