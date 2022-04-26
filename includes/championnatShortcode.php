@@ -128,7 +128,7 @@
                 <div class='classement_chmpFFT'>
                     <table>
                         <thead>
-                            <tr'>
+                            <tr>
                                 <th class='chmpFFT_txtCenterHead'>Classement</th>
                                 <th class='chmpFFT_txtCenterHead'>Equipes</th>
                                 <th class='chmpFFT_txtCenterHead'>Points</th>
@@ -183,6 +183,13 @@
             $visiteuseScore = $match->visiteuse->score;
             $lienFeuilleMatch = $match->lienFeuilleMatch;
 
+            $versus;
+            if(strcmp($lienFeuilleMatch, '-') != 0) {
+                $versus = "<a href=\"$lienFeuilleMatch\" target=\"_blank\">$imageVersus</a>";
+            } else {
+                $versus = $imageVersus;
+            }
+
             //On crée un tableau de résultat pour chaque match avec son propre lien vers la feuille de match
             $affichageHTML = $affichageHTML."
 
@@ -200,18 +207,7 @@
                         <tbody>
                             <tr>
                                 <td class='chmpFFT_txtCenterBody'>$visiteeNom<br/>$visiteeScore</td>
-                                <td class='chmpFFT_txtCenterBody_w20'><a ";
-                                if(strcmp($lienFeuilleMatch, '-') != 0) {
-                                    $affichageHTML = $affichageHTML
-                                    ."href=\"$lienFeuilleMatch\" target=\"_blank\"
-                                    ";
-                                }
-                                $affichageHTML = $affichageHTML." >$imageVersus";
-                                if(strcmp($lienFeuilleMatch, '-') != 0) {
-                                    $affichageHTML = $affichageHTML
-                                    ."</a>";
-                                }
-                                    $affichageHTML = $affichageHTML."</td>
+                                <td class='chmpFFT_txtCenterBody_w20'>$versus</td>
                                 <td class='chmpFFT_txtCenterBody'> $visiteuseNom<br/>$visiteuseScore</td>
                             </tr>";
 

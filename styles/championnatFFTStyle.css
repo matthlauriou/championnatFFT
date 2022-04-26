@@ -49,3 +49,7 @@
 .resultats_chmpFFT_table_bottom{
     width: 100%;
 }
+
+.chmpFFT_txtCenter {
+    text-align: center;
+}
