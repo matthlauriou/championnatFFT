@@ -172,6 +172,9 @@
                 </div>
             </figure>";
 
+        $espaceurTop = '';
+        $indiceEspaceur = 0;
+
         //On crée un nouvelle affichage à la suite du tableau de classement
         $affichageHTML = $affichageHTML. "<h2>Les Résultats</h2><br/>";
         // On boucle sur l'ensemble des matchs afin d'afficher chaque match et ses résultats dans un tableau HTML
@@ -190,11 +193,16 @@
                 $versus = $imageVersus;
             }
 
+            // Pas de margin-top sur le premier tableau de résultat
+            if($indiceEspaceur > 0) {
+                $espaceurTop = 'chmpFFT_margin_top';
+            }
+
             //On crée un tableau de résultat pour chaque match avec son propre lien vers la feuille de match
             $affichageHTML = $affichageHTML."
 
             <figure>
-                <div class='chmpFFT_border-radius_15 chmpFFT_overflow chmpFFT_max_width'>
+                <div class='chmpFFT_border-radius_15 chmpFFT_overflow chmpFFT_max_width $espaceurTop'>
                     <table class='chmpFFT_margin_bottom chmpFFT_w100'>
                         <thead>
                             <tr>
@@ -203,8 +211,7 @@
                             </tr>
                         </thead>
                     </table>
-                    <table class='chmpFFT_w100'>
-                    
+                    <table class='chmpFFT_margin_bottom chmpFFT_w100'>
                         <tr>
                             <td class='chmpFFT_background-color_grisClair chmpFFT_text-color_bleuNuit chmpFFT_txtCenter chmpFFT_w40'>$visiteeNom<br/>$visiteeScore</td>
                             <td class='chmpFFT_background-color_grisClair chmpFFT_txtCenter chmpFFT_w20'>$versus</td>
@@ -220,10 +227,12 @@
             }
             //fermeture du tableau de résultats d'un match            
             $affichageHTML = $affichageHTML."
-                    </table>
-                </div>
-            </figure>
-        </body>";
+                        </table>
+                    </div>
+                </figure>
+            </body>";
+
+            $indiceEspaceur++;
         }
 
        
