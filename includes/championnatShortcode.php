@@ -188,15 +188,15 @@
 
             <figure>
                 <div class='resultats_chmpFFT'>
-                    <table class='resultats_chmpFFT_table'>
+                    <table class='resultats_chmpFFT_table_top'>
                         <thead>
                             <tr>
-                                <th class='resultats_chmpFFT_txtCenterHead'>Date du match</th>
-                                <th class='resultats_chmpFFT_txtCenterHead'>$date</th>
+                                <th class='chmpFFT_txtCenterHead_textdate'>Date du match : </th>
+                                <th class='chmpFFT_txtCenterHead_date'>$date</th>
                             </tr>
                         </thead>
                     </table>
-                    <table>
+                    <table class='resultats_chmpFFT_table_bottom'>
                         <tbody>
                             <tr>
                                 <td class='chmpFFT_txtCenterBody'>$visiteeNom<br/>$visiteeScore</td>

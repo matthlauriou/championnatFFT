@@ -1,16 +1,17 @@
-.chmpFFT_txtCenterHead_w20{
-    text-align: center;
-    background-color: #1c2230;
-    width: 20%;
-}
 .chmpFFT_txtCenterBody_w20{
     text-align: center;
     background-color: #e3e3e5;
     width: 20%;
 }
 
-.chmpFFT_txtCenterHead{
-    text-align: center;
+.chmpFFT_txtCenterHead_textdate{
+    text-align: right;
+    color: #e3e3e5 ;
+    background-color: #1c2230;
+    width: 40%;
+}
+.chmpFFT_txtCenterHead_date{
+    text-align: left;
     color: #e3e3e5 ;
     background-color: #1c2230;
     width: 40%;
@@ -24,9 +25,13 @@
 
 .classement_chmpFFT{
     border-radius: 20px;
+    overflow: auto;
+    max-width: 100%;
 }
 .resultats_chmpFFT{
-    border-radius: 10px;
+    border-radius: 15px;
+    overflow: auto;
+    max-width: 100%;
 }
 
 .resultats_chmpFFT_txtCenterHead{
@@ -34,5 +39,13 @@
     color: #e3e3e5 ;
     background-color: #1c2230;
     width: 50%;
+    
+}
+
+.resultats_chmpFFT_table_top{
+    width: 100%;
     margin-bottom: 0px;
+}
+.resultats_chmpFFT_table_bottom{
+    width: 100%;
 }
