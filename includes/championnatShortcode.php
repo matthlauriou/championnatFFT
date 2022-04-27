@@ -118,7 +118,7 @@
         // 8 - Trier $classement et $matchs si besoin : pour le moment N/A
 
         // 9 - Afficher le résultat des fonctions sur la page de l'équipe
-        $imageVersus = "<img src='".plugin_dir_url(dirname(__FILE__)).'img/slash.png'."' alt'Versus'/>";
+        $imageVersus = "<img src='".plugin_dir_url(dirname(__FILE__)).'img/slash.png'."' alt'Versus'class='chmpFFT_img_responsive'/>";
         //On crée le tableau dans lequelle on va afficher les données
         $affichageHTML =  "
         <body>
