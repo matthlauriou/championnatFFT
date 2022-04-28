@@ -22,6 +22,7 @@
 
   defined('ABSPATH') or die('Hey, you can\t access this file, you silly humain!!!');
 
+  
   //Classe php dans l'object de respecter la Programmation Orienté Objet
   class ChampionnatsPlugin
   {
@@ -52,18 +53,17 @@
         //mise en attente des scripts exemple css js etc pour la lecture
         wp_dequeue_style( 'championnatFFTStyle');
       }
+
       function registerPopup(){
         add_action('admin_enqueue_scripts',array(
           $this,
           'enqueuePopup'
         ));
       }
-      function enqueuePopup($hook){
-        if('edit.php'!=$hook){
-          return;
-        }
+
+      function enqueuePopup(){
         wp_enqueue_style('championnatPopup',plugin_dir_url(__FILE__) .'/styles/championnatPopup.css');
-        wp_enqueue_script('championnatPopupJs', get_template_directory_uri() .'/script/championnatPopupJs.js');
+        wp_enqueue_script('championnatPopupJs', plugin_dir_url(__FILE__) .'/script/championnatPopupJs.js');
       }
       
 
@@ -72,7 +72,8 @@
       {
         // Initialisation de la BDD
         global $wpdb;
-
+        write_log('THIS IS THE START OF MY CUSTOM DEBUG activationPlugin');
+        
         require plugin_dir_path(__FILE__).'includes/constantes/constantes.php';
         require plugin_dir_path(__FILE__).'includes/bdd/Init.php';
 

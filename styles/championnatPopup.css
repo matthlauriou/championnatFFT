@@ -1,0 +1,54 @@
+.modal {
+    text-align: center;
+    background-color: #e3e3e5;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 40%;
+}
+
+.modalContent {
+    font-size: 20px;
+    font-weight: bold;
+    margin: auto;
+    padding: 2px;
+}
+
+.close {
+    color: #b2261d;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #ef952e;
+    cursor: pointer;
+}
+
+.modalContent button {
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.del {
+    color: #e3e3e5;
+    background-color: #71757e;
+}
+
+.del:hover {
+    color: #e3e3e5;
+    background-color: #1c2230;
+}
+
+.cancel {
+    color: #e3e3e5;
+    background-color: #71757e;
+}
+
+.cancel:hover {
+    color: #e3e3e5;
+    background-color: #1c2230;
+}
