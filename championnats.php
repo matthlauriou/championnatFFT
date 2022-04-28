@@ -30,8 +30,6 @@
       {
         //règles à appliquer de manières générale
       }
-
-      
       // lecture des scripts mis en file d'attente
       function register()
       {
@@ -53,6 +51,19 @@
       {
         //mise en attente des scripts exemple css js etc pour la lecture
         wp_dequeue_style( 'championnatFFTStyle');
+      }
+      function registerPopup(){
+        add_action('admin_enqueue_scripts',array(
+          $this,
+          'enqueuePopup'
+        ));
+      }
+      function enqueuePopup($hook){
+        if('edit.php'!=$hook){
+          return;
+        }
+        wp_enqueue_style('championnatPopup',plugin_dir_url(__FILE__) .'/styles/championnatPopup.css');
+        wp_enqueue_script('championnatPopupJs', get_template_directory_uri() .'/script/championnatPopupJs.js');
       }
       
 
@@ -113,6 +124,7 @@
   if (class_exists('ChampionnatsPlugin')) {
     $championnatsPlugin = new ChampionnatsPlugin();
     $championnatsPlugin->register();
+    $championnatsPlugin->registerPopup();
   }
 
   // Appel de la fonction d'activationPlugin et réalisation des actions associées
